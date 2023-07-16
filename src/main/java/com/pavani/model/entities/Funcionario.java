@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Entity
 public class Funcionario implements Serializable {
 
     @Id
@@ -22,7 +23,7 @@ public class Funcionario implements Serializable {
     @NotNull
     private Long codigo;    //código de que?
 
-    @OneToOne(mappedBy = "funcinoario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private CrachaFuncionario cracha;
 
     public Funcionario(){}

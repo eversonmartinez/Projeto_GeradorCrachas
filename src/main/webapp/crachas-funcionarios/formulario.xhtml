@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view encoding ="ISO_8859-1" contentType="text/html">
     <h:head>
-        <title>Gerador de Crachás</title>
+        <title>Edição de Crachás</title>
         <h:outputStylesheet library="css" name="estilos.css"/>
         <h:outputScript library="js" name="scripts.js"/>
     </h:head>
@@ -37,9 +37,8 @@
                                             value="Funcionários"
                                             ajax="false" target="_blank"/>
                                 <p:menuitem
-                                        action="#{CrachaFuncionarioController.listar()}"
                                         value="Crachás"
-                                        ajax="false"/>
+                                        ajax="false" target="_blank"/>
                             </p:submenu>
                         </p:column>
                     </p:submenu>
@@ -58,8 +57,38 @@
         </div>
 
         <div id = "center">
-            <h1>Sistema</h1>
+            <h:form>
+
+                <p:growl/>
+                <div align="center">
+                    <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="Dados do Funcinário"/>
+                    </f:facet>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
+                            <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
+                        </div>
+                    </f:facet>
+                    <p:outputLabel value="ID"/>
+                    <p:inputText value="#{CrachaFuncionarioController.objeto.id}" size="5" readonly="true"/>
+                    <p:outputLabel value="Nome" for="txtNome"/>
+                    <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="30" maxlength="30"
+                                                placeholder="Obrigatório"/>
+                    <p:outputLabel value="Apelido" for="txtApelido"/>
+                    <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="30" maxlength="30"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel value="Foto" for="uploadPhoto"/>
+                    <p:fileUpload value="#{CrachaFuncionarioController.handleFileUpload}" mode="simple" allowTypes="*.jpg;*.png;*.jpeg"
+                                  sizeLimit="5000" id="uploadPhoto"/>
+
+
+                    </p:panelGrid>
+                </div>
+            </h:form>
         </div>
+
 
         <div id="south">
             <ui:include src="/templates/ajaxstatus.xhtml"/>

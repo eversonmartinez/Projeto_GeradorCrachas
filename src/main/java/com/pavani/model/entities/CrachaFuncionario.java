@@ -1,26 +1,39 @@
 package com.pavani.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import com.pavani.util.FileDAO;
+import com.pavani.util.IFileDAO;
+import jakarta.inject.Inject;
+import jakarta.persistence.*;
+import org.hibernate.service.spi.InjectService;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
+@Entity
 public class CrachaFuncionario implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "nomeVisivel", nullable = true, length = 20)
     private String nomeVisivel;
     @Column(name = "apelido", nullable = true, length = 10)
     private String apelido;
     private byte[] foto;
 
-    @MapsId
-    @OneToOne
+    //MapsId//
+    @OneToOne(optional = true)
     private Funcionario funcionario;
 
     public CrachaFuncionario(){}
 
     public CrachaFuncionario(Funcionario funcionario) {
        this.funcionario = funcionario;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNomeVisivel() {
@@ -45,6 +58,11 @@ public class CrachaFuncionario implements Serializable {
 
     public void setFoto(byte[] foto) {
         this.foto = foto;
+    }
+
+    public void setFoto(InputStream foto) throws IOException{
+            File file = new File("image.png");
+            FileDAO.save(foto, file);
     }
 
     public Funcionario getFuncionario() {
