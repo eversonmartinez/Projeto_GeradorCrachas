@@ -3,17 +3,12 @@ package com.pavani.controller;
 import com.pavani.dao.CrachaFuncionarioDao;
 import com.pavani.model.entities.CrachaFuncionario;
 import com.pavani.util.MessageUtil;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -41,8 +36,8 @@ public class CrachaFuncionarioController {
 
     public String salvar(){
         boolean gravou;
+        upload();
         gravou = (objeto.getId() == null ? dao.persist(objeto) : dao.merge(objeto));
-
         if(gravou){
             MessageUtil.infoMessage(dao.getMensagem());
             return "listar?faces-redirect=true";
@@ -73,8 +68,6 @@ public class CrachaFuncionarioController {
         return "listar?faces-redirect=true";
     }
 
-
-
     public UploadedFile getFile() {
         return file;
     }
@@ -86,14 +79,35 @@ public class CrachaFuncionarioController {
     public void upload(){
         if(file != null){
             try {
-                InputStream inputStream = file.getInputStream();
-                objeto.setFoto(inputStream);
+                byte[] arquivoByte = toByteArrayUsingJava(file.getInputStream());
+
+                objeto.setFoto(arquivoByte);
+
                 MessageUtil.infoMessage("File Uploaded");
             }catch(IOException e){
                 e.printStackTrace();
                 MessageUtil.errorMessage("Não foi possível salvar o arquivo");
             }
         }
+    }
+
+    public void uploadTemporario(FileUploadEvent event) throws IOException {
+        file = event.getFile();
+    }
+
+    private byte[] toByteArrayUsingJava(InputStream inputS) throws IOException{
+        ByteArrayOutputStream byteArrayOtpS = new ByteArrayOutputStream();
+        int readByte = inputS.read();
+        while (readByte != -1){
+            byteArrayOtpS.write(readByte);
+            readByte = inputS.read();
+        }
+        return byteArrayOtpS.toByteArray();
+    }
+
+    //TEMPORARIAMENTE SENDO UTILIZADO PARA PEGAR UMA FOTO DO BANCO E SALVAR NA MINHA MÁQUINA
+    public void testFoto() throws IOException {
+        dao.testeGetFoto(objeto.getId());
     }
 
     public CrachaFuncionarioDao getDao(){

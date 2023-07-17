@@ -1,15 +1,8 @@
 package com.pavani.model.entities;
 
-import com.pavani.util.FileDAO;
-import com.pavani.util.IFileDAO;
-import jakarta.inject.Inject;
 import jakarta.persistence.*;
-import org.hibernate.service.spi.InjectService;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
+import java.io.*;
 
 @Entity
 public class CrachaFuncionario implements Serializable {
@@ -20,6 +13,7 @@ public class CrachaFuncionario implements Serializable {
     private String nomeVisivel;
     @Column(name = "apelido", nullable = true, length = 10)
     private String apelido;
+    @Lob
     private byte[] foto;
 
     //MapsId//
@@ -56,13 +50,16 @@ public class CrachaFuncionario implements Serializable {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+    public void testeGetFoto() throws IOException {
+
+        File teste = new File("C:\\Users\\Administrador\\Desktop\\Teste.png");
+        FileOutputStream out = new FileOutputStream(teste);
+        out.write(this.foto);
+        out.close();
     }
 
-    public void setFoto(InputStream foto) throws IOException{
-            File file = new File("image.png");
-            FileDAO.save(foto, file);
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     public Funcionario getFuncionario() {

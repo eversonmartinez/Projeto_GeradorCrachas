@@ -57,18 +57,20 @@
         </div>
 
         <div id = "center">
-            <h:form>
+            <h:form enctype="multipart/form-data">
 
                 <p:growl/>
                 <div align="center">
                     <p:panelGrid columns="2">
                     <f:facet name="header">
-                        <p:outputLabel value="Dados do Funcinário"/>
+                        <p:outputLabel value="Dados do Funcionário"/>
                     </f:facet>
                     <f:facet name="footer">
                         <div align="center">
                             <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
                             <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
+<!--                            TEMPORARIAMENTE SENDO UTILIZADO PARA PEGAR UMA FOTO DO BANCO E SALVAR NA MINHA MÁQUINA-->
+                            <p:commandButton value="Testar" action="#{CrachaFuncionarioController.testFoto()}" ajax="false" icon="pi pi-save"/>
                         </div>
                     </f:facet>
                     <p:outputLabel value="ID"/>
@@ -80,9 +82,12 @@
                     <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="30" maxlength="30"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel value="Foto" for="uploadPhoto"/>
-                    <p:fileUpload value="#{CrachaFuncionarioController.handleFileUpload}" mode="simple" allowTypes="*.jpg;*.png;*.jpeg"
-                                  sizeLimit="5000" id="uploadPhoto"/>
-
+                    <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
+                                  allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" fileLimit="1" multiple="false"
+                                  invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
+                                  invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
+                                  fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
+                                    />
 
                     </p:panelGrid>
                 </div>
