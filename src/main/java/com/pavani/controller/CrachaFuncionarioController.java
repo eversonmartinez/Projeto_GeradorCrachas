@@ -19,7 +19,7 @@ public class CrachaFuncionarioController {
     private CrachaFuncionarioDao dao;
     private CrachaFuncionario objeto;
 
-    private UploadedFile file;
+    private transient UploadedFile file;
 
     public CrachaFuncionarioController(){
         dao=new CrachaFuncionarioDao();
