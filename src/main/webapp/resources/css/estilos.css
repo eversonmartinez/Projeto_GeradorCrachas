@@ -11,23 +11,14 @@
     overflow:visible !important;
 }
 
-
-.customPanelGrid{
-    width: 100%;
+.formulario{
+    width: 50%;
+    display: inline-block;
+    float: left;
 }
 
-.customPanelGrid .ui-panelgrid-content {
-    align-items: center;
-}
-
-.forty-percent {
-    width: 40%;
-}
-
-.sixty-percent {
-    width: 60%;
-}
-
-.top-alignment {
-    vertical-align: top;
+.image{
+    float: right;
+    width: 200px;
+    height: 200px;
 }

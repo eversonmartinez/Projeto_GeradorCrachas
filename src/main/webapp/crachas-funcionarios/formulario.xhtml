@@ -8,11 +8,12 @@
 <f:view encoding ="ISO_8859-1" contentType="text/html">
     <h:head>
         <title>Edição de Crachás</title>
-        <h:outputStylesheet library="css" name="estilos.css"/>
+
         <h:outputScript library="js" name="scripts.js"/>
     </h:head>
 
     <h:body style="text-align: center">
+        <h:outputStylesheet library="css" name="estilos.css" />
         <div id="north">
             <h:form id="menu">
                 <p:megaMenu>
@@ -20,9 +21,9 @@
                         <p:column>
                             <p:submenu label="Funcionários">
                                 <p:menuitem
-                                            value="Importar csv"
-                                            ajax="false"
-                                            target="_blank"/>
+                                        value="Importar csv"
+                                        ajax="false"
+                                        target="_blank"/>
                                 <p:menuitem
                                         value="Cadastro manual"
                                         ajax="false"
@@ -34,8 +35,8 @@
                         <p:column>
                             <p:submenu label="Funcionários">
                                 <p:menuitem
-                                            value="Funcionários"
-                                            ajax="false" target="_blank"/>
+                                        value="Funcionários"
+                                        ajax="false" target="_blank"/>
                                 <p:menuitem
                                         value="Crachás"
                                         ajax="false" target="_blank"/>
@@ -62,44 +63,47 @@
 
                 <p:growl/>
                 <div align="center">
-                    <p:panelGrid columns="2" width="100%" >
+                    <p:panelGrid columns="2" styleClass="formulario">
 
-                            <p:panelGrid columns="2" columnClasses="forty-percent, sixty-percent">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Dados do Funcionário"/>
-                                </f:facet>
-                                <f:facet name="footer">
-                                    <div align="center">
-                                        <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
-                                        <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
-            <!--                            TEMPORARIAMENTE SENDO UTILIZADO PARA PEGAR UMA FOTO DO BANCO E SALVAR NA MINHA MÁQUINA-->
-                                        <p:commandButton value="Testar" action="#{CrachaFuncionarioController.testFoto()}" ajax="false" icon="pi pi-save"/>
-                                    </div>
-                                </f:facet>
-                                <p:outputLabel value="ID"/>
-                                <p:inputText value="#{CrachaFuncionarioController.objeto.id}" size="5" readonly="true"/>
-                                <p:outputLabel value="Nome" for="txtNome"/>
-                                <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="30" maxlength="30"
-                                                            placeholder="Obrigatório"/>
-                                <p:outputLabel value="Apelido" for="txtApelido"/>
-                                <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="30" maxlength="30"
-                                             placeholder="Obrigatório"/>
-                                <p:outputLabel value="Foto" for="uploadPhoto"/>
-                                <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
-                                              allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" fileLimit="1" multiple="false"
-                                              invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
-                                              invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
-                                              fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
-                                                />
-                            </p:panelGrid>
+                        <f:facet name="header">
+                            <p:outputLabel value="Dados do Funcionário"/>
+                        </f:facet>
+
+                            <p:outputLabel value="ID"/>
+                            <p:inputText value="#{CrachaFuncionarioController.objeto.id}" size="5" readonly="true"/>
 
 
 
-                            <p:graphicImage url="http://localhost:8080/Projeto_GeradorCrachas-1.0-SNAPSHOT/images/1"/>
+                            <p:outputLabel value="Nome" for="txtNome"/>
+                            <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="30" maxlength="30"
+                                         placeholder="Obrigatório"/>
 
+                            <p:outputLabel value="Apelido" for="txtApelido"/>
+                            <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="30" maxlength="30"
+                                         placeholder="Obrigatório"/>
+
+                            <p:outputLabel value="Foto" for="uploadPhoto"/>
+                            <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
+                                          allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" fileLimit="1" multiple="false"
+                                          invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
+                                          invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
+                                          fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
+                            />
+
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
+                                <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
+                                <ui:remove>
+                                <!--TEMPORARIAMENTE SENDO UTILIZADO PARA PEGAR UMA FOTO DO BANCO E SALVAR NA MINHA MÁQUINA-->
+                                </ui:remove>
+                                <p:commandButton value="Testar" action="#{CrachaFuncionarioController.testFoto()}" ajax="false" icon="pi pi-save"/>
+                            </div>
+                        </f:facet>
                     </p:panelGrid>
                 </div>
             </h:form>
+            <p:graphicImage url="http://localhost:8080/Projeto_GeradorCrachas-1.0-SNAPSHOT/images/1" styleClass="image"/>
         </div>
 
 
@@ -110,4 +114,5 @@
 
     </h:body>
 </f:view>
+
 </html>
