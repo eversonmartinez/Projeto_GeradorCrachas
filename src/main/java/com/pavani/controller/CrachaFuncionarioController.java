@@ -110,6 +110,13 @@ public class CrachaFuncionarioController {
         dao.testeGetFoto(objeto.getId());
     }
 
+    public byte[] mostrarCracha(){
+        if(objeto.getId()!=null && objeto.getFoto()!= null){
+            byte[] imagemCracha = objeto.getFoto();
+        }
+        return dao.testeGetFoto();
+    }
+
     public CrachaFuncionarioDao getDao(){
         return dao;
     }
