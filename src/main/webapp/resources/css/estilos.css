@@ -11,6 +11,21 @@
     overflow:visible !important;
 }
 
+.ui-panelgrid.customPanelGrid .ui-grid-responsive .ui-panelgrid-cell {
+    text-align: center;
+}
+
+.customPanelGrid .ui-panelgrid-content {
+    align-items: center;
+}
+
+.customPanelGrid{
+    width: 80%;
+    margin:auto;
+    padding-right: 0;
+    align-items: center;
+}
+
 .formulario{
     width: 50%;
     display: inline-block;
@@ -21,4 +36,17 @@
     float: right;
     width: 200px;
     height: 200px;
+}
+
+.sixty-percent{
+    width: 60%;
+}
+
+.forty-percent{
+    width: 40%;
+}
+
+.formImage{
+    width: 300px;
+    height: 400px;
 }

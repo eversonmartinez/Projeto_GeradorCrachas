@@ -17,6 +17,7 @@
       <junit.version>5.9.2</junit.version>
       </properties>
 
+    <!--JSF-->
   <dependencies>
      <dependency>
          <groupId>jakarta.platform</groupId>
@@ -30,6 +31,8 @@
           <version>3.0.0</version>
           <scope>provided</scope>
       </dependency>-->
+
+      <!--PRIMEFACES (ESTILOS CSS) -->
       <dependency>
           <groupId>org.primefaces</groupId>
           <artifactId>primefaces</artifactId>

@@ -12,7 +12,7 @@
         <h:outputScript library="js" name="scripts.js"/>
     </h:head>
 
-    <h:body style="text-align: center">
+    <h:body style="text-align: center; margin:auto;">
         <h:outputStylesheet library="css" name="estilos.css" />
         <div id="north">
             <h:form id="menu">
@@ -59,11 +59,15 @@
 
 
         <div id = "center">
-            <h:form enctype="multipart/form-data">
+            <p:panelGrid columns="2" columnClasses="sixty-percent, forty-percent" styleClass="customPanelGrid">
+                <p:row>
+                <p:column styleClass="sixty-percent">
+                <h:form enctype="multipart/form-data">
 
                 <p:growl/>
                 <div align="center">
-                    <p:panelGrid columns="2" styleClass="formulario">
+
+                    <p:panelGrid columns="2" style="display: inline-block; float: left">
 
                         <f:facet name="header">
                             <p:outputLabel value="Dados do Funcionário"/>
@@ -103,7 +107,19 @@
                     </p:panelGrid>
                 </div>
             </h:form>
-            <p:graphicImage url="http://localhost:8080/Projeto_GeradorCrachas-1.0-SNAPSHOT/images/1" styleClass="image"/>
+                </p:column>
+                        <p:column styleClass="forty-percent">
+                            <p:panelGrid columns="1" style="display: inline-block; float: left
+">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Crachá"/>
+                                    </f:facet>
+                    <p:graphicImage url="http://localhost:8080/Projeto_GeradorCrachas-1.0-SNAPSHOT/images/1" styleClass="formImage"/>
+                            </p:panelGrid>
+                        </p:column>
+                    </p:row>
+
+            </p:panelGrid>
         </div>
 
 
