@@ -14,14 +14,18 @@ import java.io.OutputStream;
 public class ImageServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-        String s = request.getPathInfo().substring(1);
-        response.setContentType("image/png");
+    public void doGet(HttpServletRequest request, HttpServletResponse response){
+        try {
+            String s = request.getPathInfo().substring(1);
+            response.setContentType("image/png");
 
-        byte[] bytes = ImagemCrachaService.getById(Long.parseLong(s));
-        OutputStream out = response.getOutputStream();
-        out.write(bytes);
-        out.close();
+            byte[] bytes = ImagemCrachaService.getById(Long.parseLong(s));
+            OutputStream out = response.getOutputStream();
+            out.write(bytes);
+            out.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 }

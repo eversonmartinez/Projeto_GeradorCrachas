@@ -2,6 +2,7 @@ package com.pavani.controller;
 
 import com.pavani.dao.CrachaFuncionarioDao;
 import com.pavani.model.entities.CrachaFuncionario;
+import com.pavani.service.GeradorCrachaService;
 import com.pavani.util.MessageUtil;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
@@ -111,10 +112,17 @@ public class CrachaFuncionarioController {
     }
 
     public byte[] mostrarCracha(){
-        if(objeto.getId()!=null && objeto.getFoto()!= null){
-            byte[] imagemCracha = objeto.getFoto();
+        try{
+        if(objeto.getId()!=null && objeto.getFoto()!= null) {
+            GeradorCrachaService service = new GeradorCrachaService();
+            return service.gerarCracha(dao.findById(objeto.getId()));
         }
-        return dao.testeGetFoto();
+        return null;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+            }
+        //return dao.testeGetFoto();
     }
 
     public CrachaFuncionarioDao getDao(){

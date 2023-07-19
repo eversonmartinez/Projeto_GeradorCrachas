@@ -26,12 +26,15 @@ public class Funcionario implements Serializable {
     @OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private CrachaFuncionario cracha;
 
-    public Funcionario(){}
+    public Funcionario(){
+        cracha = new CrachaFuncionario(this);
+    }
 
     public Funcionario(String nome, LocalDate admissao, Long codigo) {
         this.nome = nome;
         this.admissao = admissao;
         this.codigo = codigo;
+        cracha = new CrachaFuncionario(this);
     }
 
     public Long getId() {
@@ -44,6 +47,7 @@ public class Funcionario implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+        cracha.modificarNomeFuncionario(this.nome);
     }
 
     public LocalDate getAdmissao() {
@@ -52,6 +56,7 @@ public class Funcionario implements Serializable {
 
     public void setAdmissao(LocalDate admissao) {
         this.admissao = admissao;
+        this.cracha.setAdmissaoFuncionario(this.admissao);
     }
 
     public Long getCodigo() {
@@ -60,5 +65,6 @@ public class Funcionario implements Serializable {
 
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
+        cracha.setCodigoFuncionario(this.codigo);
     }
 }
