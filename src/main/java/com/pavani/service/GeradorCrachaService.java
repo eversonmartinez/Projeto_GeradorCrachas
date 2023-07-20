@@ -1,9 +1,15 @@
 package com.pavani.service;
 
+import com.pavani.dao.LayoutCrachaDao;
 import com.pavani.model.entities.CrachaFuncionario;
+import com.pavani.model.entities.LayoutCracha;
 import jakarta.ejb.Local;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.facelets.Facelet;
 
 import javax.imageio.ImageIO;
+import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,80 +21,47 @@ import java.time.LocalDate;
 
 public class GeradorCrachaService {
 
-    private int[] posicaoNome = new int[] {97, 243};
-    private int[] posicaoAdmissao = new int[] {93, 308};
-    private int[] posicaoCodigo = new int[] {105, 372};
-    private int[] posicaoApelido = new int[] {100, 582};
-    private int[] posicaoImagem = new int[] {0, 1623};
+    private LayoutCracha layout;
 
-    private File layout;
+    //private File layout;
 
     public GeradorCrachaService() throws IOException {
-        puxarLayout();
+        this.layout = new LayoutCrachaDao().getDefault();
     }
 
-    public File getLayout(){
+    public LayoutCracha getLayout(){
         return this.layout;
     }
 
-    public void setLayout(File layout) throws IllegalArgumentException{
-        if(!layout.isDirectory()){
-            if(isAPhoto(layout)){
-                this.layout = layout;
-                return;
-            }
-        }
+//    public void setLayout(File layout) throws IllegalArgumentException{
+//        if(!layout.isDirectory()){
+//            if(isAPhoto(layout)){
+//                this.layout = layout;
+//                return;
+//            }
+//        }
+//
+//        throw new IllegalArgumentException("Apenas imagens podem ser utilizadas como layout");
+//    }
 
-        throw new IllegalArgumentException("Apenas imagens podem ser utilizadas como layout");
+    public void setLayout(LayoutCracha layout){
+        this.layout = layout;
     }
 
-    public int[] getPosicaoNome() {
-        return posicaoNome;
-    }
 
-    public void setPosicaoNome(int[] posicaoNome) {
-        this.posicaoNome = posicaoNome;
-    }
-
-    public int[] getPosicaoAdmissao() {
-        return posicaoAdmissao;
-    }
-
-    public void setPosicaoAdmissao(int[] posicaoAdmissao) {
-        this.posicaoAdmissao = posicaoAdmissao;
-    }
-
-    public int[] getPosicaoCodigo() {
-        return posicaoCodigo;
-    }
-
-    public void setPosicaoCodigo(int[] posicaoCodigo) {
-        this.posicaoCodigo = posicaoCodigo;
-    }
-
-    public int[] getPosicaoApelido() {
-        return posicaoApelido;
-    }
-
-    public void setPosicaoApelido(int[] posicaoApelido) {
-        this.posicaoApelido = posicaoApelido;
-    }
-
-    public int[] getPosicaoImagem() {
-        return posicaoImagem;
-    }
-
-    public void setPosicaoImagem(int[] posicaoImagem) {
-        this.posicaoImagem = posicaoImagem;
-    }
-
-    public void puxarLayout() throws IOException {
-        String path = this.getClass().getResource("../../../../").getPath();
-        layout = new File(path + "\\resources\\layout-cracha\\layout.png");
-        System.out.println(layout.getAbsolutePath());
-        if(layout == null)
-            throw new IOException("Layout não foi encontrado no servidor");
-    }
+//    public void puxarLayout() throws IOException {
+//        String path = this.getClass().getResource("../../../../").getPath();
+//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//        String path = ec.getRealPath("/");
+//        layout = new File(System.getProperty("java.io.tmpdir"), "temporary1");
+//        System.out.println(layout.getAbsolutePath());
+//
+//        FileOutputStream out = new FileOutputStream(layout);
+//        LayoutCracha arquivoBanco = new LayoutCrachaDao().getDefault();
+//        out.write(arquivoBanco.getImagem());
+//        if(layout == null)
+//            throw new IOException("Layout não foi encontrado no servidor");
+//    }
 
     public void preview(){}
 
@@ -103,14 +76,22 @@ public class GeradorCrachaService {
     }
 
     public byte[] gerarCracha(String nome, LocalDate admissao, Long codigo, String apelido, byte[] fotoCracha) throws IOException {
-        System.out.println(layout.getAbsolutePath());
-        BufferedImage template = ImageIO.read(this.layout);
 
-        String path = this.getClass().getResource("../../../../").getPath();
-        File foto = new File(path + "\\resources\\temp\\funcionario.png");
+        if(layout == null)
+            throw new NullPointerException("Layout não foi encontrado no servidor");
+        if(this.layout.getImagem() == null)
+            throw new NullPointerException("Por algum motivo a imagem do layout não pode ser encontrada");
+
+        File imagemLayout = new File(System.getProperty("java.io.tmpdir"), "temporary1");
+        FileOutputStream out = new FileOutputStream(imagemLayout);
+        out.write(this.layout.getImagem());
+
+        File foto = new File(System.getProperty("java.io.tmpdir"), "temporary2");
         foto.createNewFile();
-        FileOutputStream out = new FileOutputStream(foto);
+        out = new FileOutputStream(foto);
         out.write(fotoCracha);
+
+        BufferedImage template = ImageIO.read(imagemLayout);
         BufferedImage fotoFuncionario = ImageIO.read(foto);
 
         Graphics2D graphicImage = template.createGraphics();
@@ -118,19 +99,32 @@ public class GeradorCrachaService {
         int x = 0;
         int y = 1;
 
-        graphicImage.setFont(new Font("Akhbar", Font.BOLD, 47));
-        graphicImage.setPaint(Color.black);
-        graphicImage.drawString(nome, posicaoNome[x], posicaoNome[y]);
-        graphicImage.drawString(escreverData(admissao), posicaoAdmissao[x], posicaoAdmissao[y]);
-        graphicImage.drawString(String.valueOf(codigo), posicaoCodigo[x], posicaoCodigo[y]);
-        graphicImage.drawString(apelido, posicaoApelido[x], posicaoApelido[y]);
+        graphicImage.setFont(new Font("Akhbar", Font.BOLD, 60));
+        graphicImage.setPaint(Color.white);
+        graphicImage.drawString(nome, layout.getPosicaoNome()[x], layout.getPosicaoNome()[y]);
+        graphicImage.drawString(escreverData(admissao), layout.getPosicaoAdmissao()[x], layout.getPosicaoAdmissao()[y]);
+        graphicImage.drawString(String.valueOf(codigo), layout.getPosicaoCodigo()[x], layout.getPosicaoCodigo()[y]);
 
-        graphicImage.drawImage(fotoFuncionario, posicaoImagem[x], posicaoImagem[y], 1024, 986, null);
+        graphicImage.setFont(new Font("Akhbar", Font.BOLD, 168));
+        graphicImage.drawString(apelido, layout.getPosicaoApelido()[x], layout.getPosicaoApelido()[y]);
+
+        graphicImage.drawImage(fotoFuncionario, layout.getPosicaoImagem()[x], layout.getPosicaoImagem()[y], 1024, 986, null);
 
         graphicImage.dispose();
+
         ImageIO.write(template, "PNG", foto);
 
         return Files.readAllBytes(foto.toPath());
+    }
+
+    public byte[] crachaVazio(){
+        if(layout == null)
+            throw new NullPointerException("Layout não foi encontrado no servidor");
+
+        if(this.layout.getImagem() == null)
+            throw new NullPointerException("Por algum motivo a imagem do layout não pode ser encontrada");
+
+        return layout.getImagem();
     }
 
     private String escreverData(LocalDate data){
@@ -138,27 +132,27 @@ public class GeradorCrachaService {
         int ano = data.getYear();
         if(mes == 1)
             return "Janeiro, " + ano;
-        if(mes == 1)
+        if(mes == 2)
             return "Fevereiro, " + ano;
-        if(mes == 1)
+        if(mes == 3)
             return "Março, " + ano;
-        if(mes == 1)
+        if(mes == 4)
             return "Abril, " + ano;
-        if(mes == 1)
+        if(mes == 5)
             return "Maio, " + ano;
-        if(mes == 1)
+        if(mes == 6)
             return "Junho, " + ano;
-        if(mes == 1)
+        if(mes == 7)
             return "Julho, " + ano;
-        if(mes == 1)
+        if(mes == 8)
             return "Agosto, " + ano;
-        if(mes == 1)
+        if(mes == 9)
             return "Setembro, " + ano;
-        if(mes == 1)
+        if(mes == 10)
             return "Outubro, " + ano;
-        if(mes == 1)
+        if(mes == 11)
             return "Novembro, " + ano;
-        if(mes == 1)
+        if(mes == 12)
             return "Dezembro, " + ano;
 
         return String.valueOf(ano);

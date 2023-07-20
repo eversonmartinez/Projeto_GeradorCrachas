@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class Dao<T> implements Serializable {
     private String mensagem = "";
-    private EntityManager em;
+    protected EntityManager em;
     private Class classePersistente;
 
     public Dao(){

@@ -112,17 +112,20 @@ public class CrachaFuncionarioController {
     }
 
     public byte[] mostrarCracha(){
-        try{
-        if(objeto.getId()!=null && objeto.getFoto()!= null) {
-            GeradorCrachaService service = new GeradorCrachaService();
-            return service.gerarCracha(dao.findById(objeto.getId()));
-        }
-        return null;
-        }catch(Exception ex){
-            ex.printStackTrace();
-            return null;
-            }
-        //return dao.testeGetFoto();
+
+        //        try{
+//            GeradorCrachaService service = new GeradorCrachaService();
+//            if(objeto.getId()!=null && objeto.getFoto()!= null) {
+//                return service.gerarCracha(dao.findById(objeto.getId()));
+//            }
+//            else {
+//                return service.crachaVazio();
+//            }
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//            return null;
+//            }
+
     }
 
     public CrachaFuncionarioDao getDao(){
