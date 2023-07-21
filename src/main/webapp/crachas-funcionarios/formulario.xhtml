@@ -17,20 +17,20 @@
         <div id="north">
             <h:form id="menu">
                 <p:megaMenu>
-                    <p:submenu label="Cadastros">
-                        <p:column>
-                            <p:submenu label="Funcionários">
-                                <p:menuitem
-                                        value="Importar csv"
-                                        ajax="false"
-                                        target="_blank"/>
-                                <p:menuitem
-                                        value="Cadastro manual"
-                                        ajax="false"
-                                        target="_blank"/>
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>
+                    <p:menuitem label="Início" value="Início" ajax="false" action="/index"/>
+<!--                        <p:column>-->
+<!--                            <p:submenu label="Funcionários">-->
+<!--                                <p:menuitem-->
+<!--                                        value="Importar csv"-->
+<!--                                        ajax="false"-->
+<!--                                        target="_blank"/>-->
+<!--                                <p:menuitem-->
+<!--                                        value="Cadastro manual"-->
+<!--                                        ajax="false"-->
+<!--                                        target="_blank"/>-->
+<!--                            </p:submenu>-->
+<!--                        </p:column>-->
+<!--                    </p:submenu>-->
                     <p:submenu label="Dados">
                         <p:column>
                             <p:submenu label="Funcionários">
@@ -38,18 +38,18 @@
                                         value="Funcionários"
                                         ajax="false" target="_blank"/>
                                 <p:menuitem
+                                        action="#{CrachaFuncionarioController.listar()}"
                                         value="Crachás"
-                                        ajax="false" target="_blank"/>
+                                        ajax="false"/>
                             </p:submenu>
                         </p:column>
                     </p:submenu>
-                    <p:submenu label="Usuário">
+                    <p:submenu label="Cadastros">
                         <p:column>
-                            <p:submenu label="Ações">
-                                <p:menuitem value="Ações"
+                            <p:submenu label="Funcionários">
+                                <p:menuitem value="Importar .CSV"
                                             ajax="false"
-                                            target="_blank"
-                                            icon="pi pi-power-off"/>
+                                            target="_blank"/>
                             </p:submenu>
                         </p:column>
                     </p:submenu>
