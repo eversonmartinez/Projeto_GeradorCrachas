@@ -1,4 +1,4 @@
-package com.pavani.util;
+package com.pavani.geradorcrachas.util;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

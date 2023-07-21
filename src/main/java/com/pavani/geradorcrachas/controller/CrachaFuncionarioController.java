@@ -1,9 +1,13 @@
-package com.pavani.controller;
+package com.pavani.geradorcrachas.controller;
 
-import com.pavani.dao.CrachaFuncionarioDao;
-import com.pavani.model.entities.CrachaFuncionario;
-import com.pavani.service.GeradorCrachaService;
-import com.pavani.util.MessageUtil;
+import com.pavani.geradorcrachas.dao.CrachaFuncionarioDao;
+import com.pavani.geradorcrachas.dao.LayoutCrachaDao;
+import com.pavani.geradorcrachas.model.entities.Cracha;
+import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
+import com.pavani.geradorcrachas.model.entities.LayoutCracha;
+import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
+import com.pavani.geradorcrachas.service.GeradorCrachaService;
+import com.pavani.geradorcrachas.util.MessageUtil;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
@@ -38,14 +42,17 @@ public class CrachaFuncionarioController {
     public String salvar(){
         boolean gravou;
         upload();
+        gerarCracha();
         gravou = (objeto.getId() == null ? dao.persist(objeto) : dao.merge(objeto));
         if(gravou){
             MessageUtil.infoMessage(dao.getMensagem());
+            file = null;
             return "listar?faces-redirect=true";
         }
 
         else{
             MessageUtil.errorMessage(dao.getMensagem());
+            file = null;
             return("formulario?faces-redirect=true");
         }
     }
@@ -77,7 +84,7 @@ public class CrachaFuncionarioController {
         this.file = file;
     }
 
-    public void upload(){
+    public boolean upload(){
         if(file != null){
             try {
                 byte[] arquivoByte = toByteArrayUsingJava(file.getInputStream());
@@ -85,11 +92,15 @@ public class CrachaFuncionarioController {
                 objeto.setFoto(arquivoByte);
 
                 MessageUtil.infoMessage("File Uploaded");
+                return true;
             }catch(IOException e){
                 e.printStackTrace();
                 MessageUtil.errorMessage("Não foi possível salvar o arquivo");
+                return false;
             }
         }
+
+        return false;
     }
 
     public void uploadTemporario(FileUploadEvent event) throws IOException {
@@ -111,21 +122,39 @@ public class CrachaFuncionarioController {
         dao.testeGetFoto(objeto.getId());
     }
 
-    public byte[] mostrarCracha(){
+    public String mostrarCracha(){
+        if(objeto.getId()!=null)
+            return("/images/crachas/" + objeto.getId());
 
-        //        try{
-//            GeradorCrachaService service = new GeradorCrachaService();
-//            if(objeto.getId()!=null && objeto.getFoto()!= null) {
-//                return service.gerarCracha(dao.findById(objeto.getId()));
-//            }
-//            else {
-//                return service.crachaVazio();
-//            }
-//        }catch(Exception ex){
-//            ex.printStackTrace();
-//            return null;
-//            }
+        return("/images/crachas/none");
+    }
 
+    public boolean gerarCracha(){
+        try{
+            if(objeto.getFoto() == null)
+                return false;
+            LayoutCracha layout = new LayoutCrachaDao().getDefault();
+            GeradorCrachaService service = new GeradorCrachaService(layout);
+            byte[] crachaFinalizado = service.gerarCracha(objeto);
+
+            Cracha cracha = new Cracha(objeto, layout, crachaFinalizado);
+            objeto.setCracha(cracha);
+            return true;
+        }
+        catch (IOException ioe){
+            MessageUtil.errorMessage("Houve um erro ao manipular arquivos no servidor");
+            ioe.printStackTrace();
+            return false;
+        }
+        catch (GeradorCrachaException gce){
+            MessageUtil.errorMessage(gce.getMessage());
+            return false;
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            MessageUtil.errorMessage("Não foi possível gerar o crachá");
+            return false;
+        }
     }
 
     public CrachaFuncionarioDao getDao(){

@@ -1,7 +1,6 @@
-package com.pavani.dao;
+package com.pavani.geradorcrachas.dao;
 
-import com.pavani.model.entities.LayoutCracha;
-import jakarta.persistence.Query;
+import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 
 public class LayoutCrachaDao extends Dao<LayoutCracha> {
 
@@ -9,6 +8,7 @@ public class LayoutCrachaDao extends Dao<LayoutCracha> {
         super(LayoutCracha.class);
     }
 
+    //TODO: query did not return a unique result
     public LayoutCracha getDefault(){
         return em.createQuery("from LayoutCracha order by id", LayoutCracha.class).getSingleResult();
     }

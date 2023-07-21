@@ -1,6 +1,6 @@
-package com.pavani.dao;
+package com.pavani.geradorcrachas.dao;
 
-import com.pavani.model.entities.CrachaFuncionario;
+import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 
 import java.io.File;
 import java.io.FileOutputStream;

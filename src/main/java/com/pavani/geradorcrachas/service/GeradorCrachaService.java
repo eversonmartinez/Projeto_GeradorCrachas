@@ -1,22 +1,17 @@
-package com.pavani.service;
+package com.pavani.geradorcrachas.service;
 
-import com.pavani.dao.LayoutCrachaDao;
-import com.pavani.model.entities.CrachaFuncionario;
-import com.pavani.model.entities.LayoutCracha;
-import jakarta.ejb.Local;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.facelets.Facelet;
+import com.pavani.geradorcrachas.dao.LayoutCrachaDao;
+import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
+import com.pavani.geradorcrachas.model.entities.LayoutCracha;
+import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
 
 import javax.imageio.ImageIO;
-import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class GeradorCrachaService {
@@ -25,8 +20,12 @@ public class GeradorCrachaService {
 
     //private File layout;
 
-    public GeradorCrachaService() throws IOException {
+    public GeradorCrachaService(){
         this.layout = new LayoutCrachaDao().getDefault();
+    }
+
+    public GeradorCrachaService(LayoutCracha layout){
+        this.layout = layout;
     }
 
     public LayoutCracha getLayout(){
@@ -78,9 +77,9 @@ public class GeradorCrachaService {
     public byte[] gerarCracha(String nome, LocalDate admissao, Long codigo, String apelido, byte[] fotoCracha) throws IOException {
 
         if(layout == null)
-            throw new NullPointerException("Layout não foi encontrado no servidor");
+            throw new GeradorCrachaException("Layout não foi encontrado no servidor");
         if(this.layout.getImagem() == null)
-            throw new NullPointerException("Por algum motivo a imagem do layout não pode ser encontrada");
+            throw new GeradorCrachaException("Por algum motivo a imagem do layout não pode ser encontrada");
 
         File imagemLayout = new File(System.getProperty("java.io.tmpdir"), "temporary1");
         FileOutputStream out = new FileOutputStream(imagemLayout);
@@ -125,6 +124,10 @@ public class GeradorCrachaService {
             throw new NullPointerException("Por algum motivo a imagem do layout não pode ser encontrada");
 
         return layout.getImagem();
+    }
+
+    public static byte[] crachaVazioSemLayout(){
+        return new LayoutCrachaDao().getDefault().getImagem();
     }
 
     private String escreverData(LocalDate data){

@@ -1,4 +1,4 @@
-package com.pavani.model.entities;
+package com.pavani.geradorcrachas.model.entities;
 
 import jakarta.persistence.*;
 

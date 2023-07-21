@@ -1,7 +1,7 @@
-package com.pavani.service;
+package com.pavani.geradorcrachas.service;
 
-import com.pavani.dao.CrachaFuncionarioDao;
-import com.pavani.model.entities.CrachaFuncionario;
+import com.pavani.geradorcrachas.dao.CrachaFuncionarioDao;
+import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 
 import java.io.IOException;
 

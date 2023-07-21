@@ -1,4 +1,4 @@
-package com.pavani.util;
+package com.pavani.geradorcrachas.util;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;

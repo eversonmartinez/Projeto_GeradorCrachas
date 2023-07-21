@@ -1,6 +1,7 @@
-package com.pavani.model.entities;
+package com.pavani.geradorcrachas.model.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -16,10 +17,16 @@ public class CrachaFuncionario implements Serializable {
     private String apelido;
 
     private LocalDate admissaoFuncionario;
+
+    @Column(name="codigoFuncionario", length = 4)
     private Long codigoFuncionario;
 
     @Lob
     private byte[] foto;
+    //@OneToOne(mappedBy = "id.crachaFuncionario", cascade = CascadeType.ALL)
+
+    @OneToOne(mappedBy = "id.crachaFuncionario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Cracha cracha;
 
     //MapsId//
     @OneToOne(optional = true)
@@ -141,5 +148,13 @@ public class CrachaFuncionario implements Serializable {
 
     public Funcionario getFuncionario() {
         return funcionario;
+    }
+
+    public Cracha getCracha() {
+        return cracha;
+    }
+
+    public void setCracha(Cracha cracha) {
+        this.cracha = cracha;
     }
 }

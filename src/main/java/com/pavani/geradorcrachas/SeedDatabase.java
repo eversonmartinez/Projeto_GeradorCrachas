@@ -1,7 +1,7 @@
-package com.pavani;
+package com.pavani.geradorcrachas;
 
-import com.pavani.dao.LayoutCrachaDao;
-import com.pavani.model.entities.LayoutCracha;
+import com.pavani.geradorcrachas.dao.LayoutCrachaDao;
+import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 
 import java.io.File;
 import java.io.FileOutputStream;

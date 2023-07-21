@@ -77,15 +77,15 @@
                                     <p:inputText value="#{CrachaFuncionarioController.objeto.id}" size="5" readonly="true"/>
 
                                     <p:outputLabel value="Nome" for="txtNome"/>
-                                    <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="30" maxlength="30"
+                                    <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="20" maxlength="20"
                                                  placeholder="Obrigatório"/>
 
                                     <p:outputLabel value="Admissão" for="dtpAdmissao"/>
-                                    <p:datePicker value="#{CrachaFuncionarioController.objeto.admissaoFuncionario}" id="dtpAdmissao"/>
+                                    <p:datePicker value="#{CrachaFuncionarioController.objeto.admissaoFuncionario}" id="dtpAdmissao" mindate="01"/>
 
                                     <p:outputLabel value="Código Funcionário" for="txtCodigo"/>
                                     <p:inputNumber value="#{CrachaFuncionarioController.objeto.codigoFuncionario}" id="txtCodigo"
-                                                   minValue="0" decimalPlaces="0" placeholder="Obrigatório"/>
+                                                   minValue="0" maxValue="9999" decimalPlaces="0" thousandSeparator="" />
 
                                     <p:outputLabel value="Apelido" for="txtApelido"/>
                                     <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="30" maxlength="30"

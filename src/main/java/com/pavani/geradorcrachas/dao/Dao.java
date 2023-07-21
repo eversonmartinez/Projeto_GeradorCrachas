@@ -1,7 +1,7 @@
-package com.pavani.dao;
+package com.pavani.geradorcrachas.dao;
 
-import com.pavani.util.EntityManagerUtil;
-import com.pavani.util.MessageUtil;
+import com.pavani.geradorcrachas.util.EntityManagerUtil;
+import com.pavani.geradorcrachas.util.MessageUtil;
 import jakarta.persistence.EntityManager;
 
 import java.io.Serializable;
@@ -22,7 +22,7 @@ public abstract class Dao<T> implements Serializable {
     }
 
     public List<T> getListaTodos(){
-        String jpql = "from " + classePersistente.getSimpleName() + " order by id";
+        String jpql = "from " + classePersistente.getSimpleName();
         return em.createQuery(jpql).getResultList();
     }
 
