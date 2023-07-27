@@ -21,6 +21,7 @@ public class ImageCrachaServlet extends HttpServlet {
 
             if(requestedImage == null){
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                response.setStatus(404);
                 return;
             }
 

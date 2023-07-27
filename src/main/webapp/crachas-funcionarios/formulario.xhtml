@@ -9,9 +9,7 @@
     <h:head>
         <title>Edição de Crachás</title>
 
-        <h:outputScript library="js" name="scripts.js"/>
     </h:head>
-
     <h:body style="text-align: center; margin:auto;">
         <h:outputStylesheet library="css" name="estilos.css" />
         <div id="north">
@@ -115,15 +113,24 @@
                     </p:column>
 
                     <p:column styleClass="forty-percent">
+                        <h:form>
                         <p:panelGrid columns="1" style="display: inline-block; float: left
 ">
+
                             <f:facet name="header">
                                 <p:outputLabel value="Crachá"/>
                             </f:facet>
 
-                            <p:graphicImage value="#{CrachaFuncionarioController.mostrarCracha()}" styleClass="formImage"/>
+                            <p:graphicImage value="#{CrachaFuncionarioController.mostrarCracha()}" id="crachaImage" styleClass="formImage"/>
+                            <f:facet name="footer">
+                                <div align="center">
+                                    <p:commandButton value="Preview"
+                                                     onclick="PF('dlg').show();"/>
+                                </div>
+                            </f:facet>
 
                         </p:panelGrid>
+                    </h:form>
                     </p:column>
                 </p:row>
             </p:panelGrid>
@@ -134,6 +141,15 @@
             <ui:include src="/templates/ajaxstatus.xhtml"/>
             <div align="center">Sistema do projeto para estudo</div>"
         </div>
+
+
+        <p:dialog widgetVar="dlg" header="preview" height="350">
+            <div align="center">
+                <p:graphicImage id="previewImage" value="#{ImageView.previewCracha(CrachaFuncionarioController.objeto, CrachaFuncionarioController.layout)}" styleClass="formImage"
+                                cache="false"/>
+            </div>
+        </p:dialog>
+
 
     </h:body>
 </f:view>

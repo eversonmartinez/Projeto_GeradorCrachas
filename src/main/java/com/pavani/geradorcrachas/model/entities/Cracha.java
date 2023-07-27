@@ -1,10 +1,13 @@
 package com.pavani.geradorcrachas.model.entities;
 
 import com.pavani.geradorcrachas.model.entities.pk.CrachaPK;
+import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
+import com.pavani.geradorcrachas.service.GeradorCrachaService;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
@@ -20,10 +23,15 @@ public class Cracha implements Serializable {
 
     public Cracha(){}
 
-    public Cracha(CrachaFuncionario crachaFuncionario, LayoutCracha layout, byte[] imagemCrachaFinalizado){
+    public Cracha(CrachaFuncionario crachaFuncionario, LayoutCracha layout) throws GeradorCrachaException, IOException {
         this.id.setCrachaFuncionario(crachaFuncionario);
         this.id.setLayout(layout);
-        this.crachaFinalizado = imagemCrachaFinalizado;
+        gerarCrachaFinalizado();
+    }
+
+    public void gerarCrachaFinalizado() throws GeradorCrachaException, IOException {
+            GeradorCrachaService service = new GeradorCrachaService(getLayout());
+            byte[] crachaFinalizado = service.gerarCracha(getCrachaFuncionario());
     }
 
     public CrachaPK getId() {
