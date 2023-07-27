@@ -86,7 +86,7 @@
                                                    minValue="0" maxValue="9999" decimalPlaces="0" thousandSeparator="" />
 
                                     <p:outputLabel value="Apelido" for="txtApelido"/>
-                                    <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="30" maxlength="30"
+                                    <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="10" maxlength="10"
                                                  placeholder="Obrigatório"/>
 
                                     <p:outputLabel value="Foto" for="uploadPhoto"/>
@@ -101,10 +101,8 @@
                                         <div align="center">
                                             <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
                                             <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
-                                            <ui:remove>
-                                            <!--TEMPORARIAMENTE SENDO UTILIZADO PARA PEGAR UMA FOTO DO BANCO E SALVAR NA MINHA MÁQUINA-->
-                                            </ui:remove>
-                                            <p:commandButton value="Testar" action="#{CrachaFuncionarioController.testFoto()}" ajax="false" icon="pi pi-save"/>
+                                            <p:commandButton value="Pré-visualizar" action="#{CrachaFuncionarioController.previewCracha()}" process="@form" update="previewImage"
+                                                             icon="pi pi-eye" oncomplete="PF('dlg').show();"/>
                                         </div>
                                     </f:facet>
                                 </p:panelGrid>
@@ -124,8 +122,6 @@
                             <p:graphicImage value="#{CrachaFuncionarioController.mostrarCracha()}" id="crachaImage" styleClass="formImage"/>
                             <f:facet name="footer">
                                 <div align="center">
-                                    <p:commandButton value="Preview"
-                                                     onclick="PF('dlg').show();"/>
                                 </div>
                             </f:facet>
 
@@ -143,7 +139,7 @@
         </div>
 
 
-        <p:dialog widgetVar="dlg" header="preview" height="350">
+        <p:dialog widgetVar="dlg" modal="true" header="Pré-visualização" height="405" blockScroll="true" >
             <div align="center">
                 <p:graphicImage id="previewImage" value="#{ImageView.previewCracha(CrachaFuncionarioController.objeto, CrachaFuncionarioController.layout)}" styleClass="formImage"
                                 cache="false"/>

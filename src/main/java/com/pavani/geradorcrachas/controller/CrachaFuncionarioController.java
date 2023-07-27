@@ -143,26 +143,8 @@ public class CrachaFuncionarioController implements Serializable {
         return("/images/crachas/none");
     }
 
-    public StreamedContent previewCracha(){
-        try {
-            byte[] buffer;
-            FacesContext fc = FacesContext.getCurrentInstance();
-
-            if(fc.getRenderResponse()){
-                return new DefaultStreamedContent();
-            }
-
-            LayoutCracha layout = new LayoutCrachaDao().getDefault();
-            GeradorCrachaService service = new GeradorCrachaService(layout);
-            buffer = service.gerarCracha(this.objeto);
-
-            InputStream input = new ByteArrayInputStream(buffer);
-            StreamedContent stream = DefaultStreamedContent.builder().contentType("image/jpeg").stream(() -> input).build();//DefaultStreamedContent(input, "image/jpeg");
-            return stream;
-        }catch (Exception ex){
-            ex.printStackTrace();
-            return null;
-        }
+    public void previewCracha(){
+        upload();
     }
 
     public boolean gerarCracha(){
