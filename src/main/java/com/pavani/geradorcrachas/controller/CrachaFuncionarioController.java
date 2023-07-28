@@ -6,18 +6,11 @@ import com.pavani.geradorcrachas.model.entities.Cracha;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
-import com.pavani.geradorcrachas.service.GeradorCrachaService;
 import com.pavani.geradorcrachas.util.MessageUtil;
 import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.RequestScoped;
 import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.bean.ViewScoped;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
-
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 import java.io.*;
@@ -169,6 +162,16 @@ public class CrachaFuncionarioController implements Serializable {
             MessageUtil.errorMessage("Não foi possível gerar o crachá");
             return false;
         }
+    }
+    public String downloadCracha(){
+        if(objeto.getId() == null || objeto.getFoto() == null){
+            MessageUtil.errorMessage("Não existe uma imagem de crachá para ser baixada");
+            return null;
+        }
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        //String endereco = fc.getExternalContext().toString();
+        return ("../download/images/crachas/" + objeto.getId() + "?faces-redirect=true");
     }
 
     public CrachaFuncionarioDao getDao(){
