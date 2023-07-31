@@ -9,7 +9,6 @@ public class LayoutCrachaDao extends Dao<LayoutCracha> {
         super(LayoutCracha.class);
     }
 
-    //TODO: query did not return a unique result
     public LayoutCracha getDefault(){
         Query query = em.createNativeQuery("select id from layoutcracha order by id LIMIT 1");
         return em.find(LayoutCracha.class, query.getSingleResult());
