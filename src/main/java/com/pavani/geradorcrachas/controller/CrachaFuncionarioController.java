@@ -40,6 +40,7 @@ public class CrachaFuncionarioController implements Serializable {
 
     public String novo(){
         objeto = new CrachaFuncionario();
+        fotoVazia();
         return "formulario?faces-redirect=true";
     }
 
@@ -170,8 +171,19 @@ public class CrachaFuncionarioController implements Serializable {
         }
 
         FacesContext fc = FacesContext.getCurrentInstance();
-        //String endereco = fc.getExternalContext().toString();
         return ("../download/images/crachas/" + objeto.getId() + "?faces-redirect=true");
+    }
+
+    private void fotoVazia(){
+        if(objeto.getFoto() == null){
+            try {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                InputStream is = classLoader.getResourceAsStream("layout-cracha\\no-image.png");
+                objeto.setFoto(toByteArrayUsingJava(is));
+            }catch(IOException ioe) {
+                return;
+            }
+        }
     }
 
     public CrachaFuncionarioDao getDao(){

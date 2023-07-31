@@ -27,7 +27,7 @@ public class SeedDatabase {
             dao.persist(padrao);
 
             LayoutCracha teste = dao.getDefault();    //puxando do banco de dados
-            File file = new File("C:/Users/Administrador/Desktop/teste.png");
+            File file = new File("C:/Users/Administrador/Desktop/testeGetDefault.png");
             FileOutputStream out = new FileOutputStream(file);
             out.write(teste.getImagem());
             out.close();

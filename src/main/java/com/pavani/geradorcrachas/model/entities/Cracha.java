@@ -31,7 +31,7 @@ public class Cracha implements Serializable {
 
     public void gerarCrachaFinalizado() throws GeradorCrachaException, IOException {
             GeradorCrachaService service = new GeradorCrachaService(getLayout());
-            byte[] crachaFinalizado = service.gerarCracha(getCrachaFuncionario());
+            crachaFinalizado = service.gerarCracha(getCrachaFuncionario());
     }
 
     public CrachaPK getId() {

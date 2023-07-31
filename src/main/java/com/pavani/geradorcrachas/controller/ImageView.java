@@ -9,6 +9,7 @@ import com.pavani.geradorcrachas.service.GeradorCrachaService;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseId;
 import jakarta.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -17,6 +18,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 @Named
@@ -31,14 +36,20 @@ public class ImageView implements Serializable {
         byte[] buffer;
         FacesContext fc = FacesContext.getCurrentInstance();
 
-        if(fc.getRenderResponse()){
+        if(fc.getRenderResponse() || fc.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE){
             return new DefaultStreamedContent();
         }
 
         GeradorCrachaService service = new GeradorCrachaService(layout);
 
         try {
-            buffer = service.gerarCracha(informacoes);
+            String tempNome = informacoes.getNomeVisivel() == null ? " " : informacoes.getNomeVisivel();
+            LocalDate tempAdmissao = informacoes.getAdmissaoFuncionario() == null ? LocalDate.now() : informacoes.getAdmissaoFuncionario();
+            Long tempCodigo = informacoes.getCodigoFuncionario() == null ? 0L : informacoes.getCodigoFuncionario();
+            String tempApelido = informacoes.getApelido() == null ? " " : informacoes.getApelido();
+            byte[] tempFoto = informacoes.getFoto();
+
+            buffer = service.gerarCracha(tempNome, tempAdmissao, tempCodigo, tempApelido, tempFoto);
         }catch (IOException ex){
             buffer = GeradorCrachaService.crachaVazioSemLayout();
         }

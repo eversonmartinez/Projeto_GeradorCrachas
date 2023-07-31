@@ -65,6 +65,9 @@ public class GeradorCrachaService {
     public void preview(){}
 
     public byte[] gerarCracha(CrachaFuncionario informacoes) throws IOException {
+        if(informacoes.getFoto() == null)
+            throw new GeradorCrachaException("Imagem de funcionário inválida");
+
         return gerarCracha(
                 informacoes.getNomeVisivel(),
                 informacoes.getAdmissaoFuncionario(),
@@ -80,6 +83,8 @@ public class GeradorCrachaService {
             throw new GeradorCrachaException("Layout não foi encontrado no servidor");
         if(this.layout.getImagem() == null)
             throw new GeradorCrachaException("Por algum motivo a imagem do layout não pode ser encontrada");
+        if(fotoCracha == null)
+            throw new GeradorCrachaException("Imagem de funcionário inválida");
 
         File imagemLayout = new File(System.getProperty("java.io.tmpdir"), "temporary1");
         FileOutputStream out = new FileOutputStream(imagemLayout);
