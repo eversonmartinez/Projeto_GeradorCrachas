@@ -32,32 +32,55 @@ public class LayoutCracha implements Serializable {
     private int[] posicaoApelido;
     @NotNull
     private int[] posicaoImagem;
+    @NotNull
+    private int[] tamanhoImagem;
+    @NotNull
+    private int tamanhoFonteNome;
+    @NotNull
+    private int tamanhoFonteDescricao;
+    @NotNull
+    private int tamanhoFonteApelido;
 
     public LayoutCracha(){
-        posicaoNome = new int[] {95, 247};
-        posicaoAdmissao = new int[] {83, 309};
-        posicaoCodigo = new int[] {86, 374};
-        posicaoApelido = new int[] {93, 585};
-        posicaoImagem = new int[] {0, 637};
+        posicoesDefault();
+        tamanhosDefault();
     }
 
     public LayoutCracha(String nome) {
         this.nome = nome;
-        posicaoNome = new int[] {95, 247};
-        posicaoAdmissao = new int[] {87, 309};
-        posicaoCodigo = new int[] {96, 373};
-        posicaoApelido = new int[] {97, 583};
-        posicaoImagem = new int[] {0, 637};
+        posicoesDefault();
+        tamanhosDefault();
     }
 
     public LayoutCracha(String nome, int xNome, int yNome, int xAdmissao, int yAdmissao, int xCodigo, int yCodigo,
-                        int xApelido, int yApelido, int xImagem, int yImagem){
+                        int xApelido, int yApelido, int xPosicaoImagem, int yPosicaoImagem, int xTamanhoImagem,
+                        int yTamanhoImagem, int tamanhoFonte1, int tamanhoFonte2, int tamanhoFonte3){
         this.nome = nome;
         posicaoNome = new int[] {xNome, yNome};
         posicaoAdmissao = new int[] {xAdmissao, yAdmissao};
         posicaoCodigo = new int[] {xCodigo, yCodigo};
         posicaoApelido = new int[] {xApelido, yApelido};
-        posicaoImagem = new int[] {xImagem, yImagem};
+        posicaoImagem = new int[] {xPosicaoImagem, yPosicaoImagem};
+        tamanhoImagem = new int[] {xTamanhoImagem, yTamanhoImagem};
+        tamanhoFonteNome = tamanhoFonte1;
+        tamanhoFonteDescricao = tamanhoFonte2;
+        tamanhoFonteApelido = tamanhoFonte3;
+    }
+
+
+    private void posicoesDefault(){
+        posicaoNome = new int[] {60, 151};
+        posicaoAdmissao = new int[] {60, 191};
+        posicaoCodigo = new int[] {65, 231};
+        posicaoApelido = new int[] {60, 362};
+        posicaoImagem = new int[] {0, 432};
+    }
+
+    private void tamanhosDefault(){
+        tamanhoImagem = new int[] {638, 579};
+        tamanhoFonteNome = 38;
+        tamanhoFonteDescricao = 35;
+        tamanhoFonteApelido = 104;
     }
 
     public Long getId() {
@@ -144,6 +167,44 @@ public class LayoutCracha implements Serializable {
     public void setPosicaoImagem(int x, int y) {
         this.posicaoImagem[0] = x;
         this.posicaoImagem[1] = y;
+    }
+
+    public int[] getTamanhoImagem() {
+        return tamanhoImagem;
+    }
+
+    public void setTamanhoImagem(int[] tamanhoImagem) {
+        this.tamanhoImagem = tamanhoImagem;
+    }
+
+
+    public void setTamanhoImagem(int x, int y) {
+        this.tamanhoImagem[0] = x;
+        this.tamanhoImagem[1] = y;
+    }
+
+    public int getTamanhoFonteNome() {
+        return tamanhoFonteNome;
+    }
+
+    public void setTamanhoFonteNome(int tamanhoFonteNome) {
+        this.tamanhoFonteNome = tamanhoFonteNome;
+    }
+
+    public int getTamanhoFonteDescricao() {
+        return tamanhoFonteDescricao;
+    }
+
+    public void setTamanhoFonteDescricao(int tamanhoFonteDescricao) {
+        this.tamanhoFonteDescricao = tamanhoFonteDescricao;
+    }
+
+    public int getTamanhoFonteApelido() {
+        return tamanhoFonteApelido;
+    }
+
+    public void setTamanhoFonteApelido(int tamanhoFonteApelido) {
+        this.tamanhoFonteApelido = tamanhoFonteApelido;
     }
 
     @Override

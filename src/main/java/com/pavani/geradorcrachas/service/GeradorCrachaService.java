@@ -103,16 +103,19 @@ public class GeradorCrachaService {
         int x = 0;
         int y = 1;
 
-        graphicImage.setFont(new Font("Akhbar", Font.BOLD, 60));
+        graphicImage.setFont(new Font("Akhbar", Font.BOLD, layout.getTamanhoFonteNome()));
         graphicImage.setPaint(Color.white);
         graphicImage.drawString(nome, layout.getPosicaoNome()[x], layout.getPosicaoNome()[y]);
+
+        graphicImage.setFont(new Font("Akhbar", Font.TRUETYPE_FONT, layout.getTamanhoFonteDescricao()));
         graphicImage.drawString(escreverData(admissao), layout.getPosicaoAdmissao()[x], layout.getPosicaoAdmissao()[y]);
         graphicImage.drawString(String.valueOf(codigo), layout.getPosicaoCodigo()[x], layout.getPosicaoCodigo()[y]);
 
-        graphicImage.setFont(new Font("Akhbar", Font.BOLD, 168));
+        graphicImage.setFont(new Font("Akhbar", Font.BOLD, layout.getTamanhoFonteApelido()));
         graphicImage.drawString(apelido, layout.getPosicaoApelido()[x], layout.getPosicaoApelido()[y]);
 
-        graphicImage.drawImage(fotoFuncionario, layout.getPosicaoImagem()[x], layout.getPosicaoImagem()[y], 1024, 986, null);
+        graphicImage.drawImage(fotoFuncionario, layout.getPosicaoImagem()[x], layout.getPosicaoImagem()[y],
+                layout.getTamanhoImagem()[x], layout.getTamanhoImagem()[y], null);
 
         graphicImage.dispose();
 
