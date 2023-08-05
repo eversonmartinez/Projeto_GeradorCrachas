@@ -6,112 +6,74 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 <f:view encoding ="ISO_8859-1" contentType="text/html">
-    <h:head>
-        <title>Listagem de Crachás</title>
-        <h:outputStylesheet library="css" name="estilos.css"/>
-        <h:outputScript library="js" name="scripts.js"/>
-    </h:head>
 
-    <h:body style="text-align: center">
-        <div id="north">
-            <h:form id="menu">
-                <p:megaMenu>
-                    <p:menuitem label="Início" value="Início" ajax="false" action="/index"/>
-                    <!--                        <p:column>-->
-<!--                            <p:submenu label="Funcionários">-->
-<!--                                <p:menuitem-->
-<!--                                            value="Importar csv"-->
-<!--                                            ajax="false"-->
-<!--                                            target="_blank"/>-->
-<!--                                <p:menuitem-->
-<!--                                        value="Cadastro manual"-->
-<!--                                        ajax="false"-->
-<!--                                        target="_blank"/>-->
-<!--                            </p:submenu>-->
-<!--                        </p:column>-->
-<!--                    </p:submenu>-->
-                    <p:submenu label="Dados">
-                        <p:column>
-                            <p:submenu label="Funcionários">
-                                <p:menuitem
-                                            value="Funcionários"
-                                            ajax="false" target="_blank"/>
-                                <p:menuitem
-                                        action="#{CrachaFuncionarioController.listar()}"
-                                        value="Crachás"
-                                        ajax="false"/>
-                            </p:submenu>
+    <h:body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="pageTitle">Listagem de Crachás</ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <p:messages/>
+                    <p:growl/>
+                    <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
+                    <div align="center">
+                        <p:panelGrid columns="11">
+                            <p:outputLabel value = "Filtro:"/>
+                            <p:selectOneMenu value="#{CrachaFuncionarioController.dao.ordem}">
+                                <f:selectItem itemLabel="ID" itemValue="id"/>
+                                <f:selectItem itemLabel="Nome" itemValue="nomeVisivel"/>
+                                <f:selectItem itemLabel="Código" itemValue="codigoFuncionario"/>
+                                <p:ajax update="listagem"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Pesquisa:"/>
+                            <p:inputText size="20" value="#{CrachaFuncionarioController.dao.filtro}">
+
+                            </p:inputText>
+                            <p:commandButton value="Pesquisar" icon="pi pi-search" update="listagem"/>
+                            <p:outputLabel value="Máximo de objetos"/>
+                            <p:inputNumber value="#{CrachaFuncionarioController.dao.maximoObjetos}" decimalPlaces="0" decimalSeparator=""
+                                           thousandSeparator=""/>
+                            <p:commandButton value="Primeira" icon="pi pi-fast-backward"
+                                             actionListener="#{CrachaFuncionarioController.dao.primeiraPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{CrachaFuncionarioController.dao.anteriorPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{CrachaFuncionarioController.dao.proximaPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Última" icon="pi pi-fast-forward" actionListener="#{CrachaFuncionarioController.dao.ultimaPagina()}"
+                                             update="listagem"/>
+                        </p:panelGrid>
+                    </div>
+
+                    <p:dataTable value="#{CrachaFuncionarioController.dao.listaObjetos}" var="objeto" id="listagem">
+                        <f:facet name="footer">
+                            <p:outputLabel value="#{CrachaFuncionarioController.dao.mensagemNavegaco}"/>
+                        </f:facet>
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{objeto.id}"/>
                         </p:column>
-                    </p:submenu>
-                    <p:submenu label="Cadastros">
-                        <p:column>
-                            <p:submenu label="Funcionários">
-                                <p:menuitem value="Importar .CSV"
-                                            ajax="false"
-                                            target="_blank"/>
-                            </p:submenu>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{objeto.nomeVisivel}"/>
                         </p:column>
-                    </p:submenu>
-                </p:megaMenu>
-            </h:form>
-        </div>
+                        <p:column headerText="Apelido">
+                            <p:outputLabel value="#{objeto.apelido}"/>
+                        </p:column>
+                        <p:column headerText="Código">
+                            <p:outputLabel value="#{objeto.codigoFuncionario}"/>
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id)}" ajax="false"
+                                                 icon="pi pi-pencil" title="Editar"/>
+                                <p:commandButton action="#{CrachaFuncionarioController.remover(objeto.id)}" ajax="false"
+                                                 icon="pi pi-trash" title="Remover" update="@form"
+                                                 onclick="if (!confirm('Confirma a exclusão?')) return false"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
 
-        <div id = "center">
-            <h:form>
-                <p:messages/>
-                <p:growl/>
-                <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
-                <div align="center">
-                    <p:panelGrid columns="10">
-                        <p:outputLabel value = "Ordem:"/>
-                        <p:selectOneMenu>
-                            <f:selectItem itemLabel="teste"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Pesquisa:"/>
-                        <p:inputText size="15">
-                        </p:inputText>
-                        <p:commandButton value="Pesquisar" icon="pi pi-search"/>
-                        <p:commandButton value="Primeira" icon="pi pi-fast-backward"/>
-                        <p:commandButton value="Anterior" icon="pi pi-step-backward"/>
-                        <p:commandButton value="Próxima" icon="pi pi-step-forward"/>
-                        <p:commandButton value="Última" icon="pi pi-fast-forward"/>
-                    </p:panelGrid>
-                </div>
-
-                <p:dataTable value="#{CrachaFuncionarioController.dao.listaTodos}" var="objeto" id="listagem">
-                    <f:facet name="footer">
-                        <p:outputLabel value="Página x"/>
-                    </f:facet>
-                    <p:column headerText="ID">
-                        <p:outputLabel value="#{objeto.id}"/>
-                    </p:column>
-                    <p:column headerText="Nome">
-                        <p:outputLabel value="#{objeto.nomeVisivel}"/>
-                    </p:column>
-                    <p:column headerText="Apelido">
-                        <p:outputLabel value="#{objeto.apelido}"/>
-                    </p:column>
-                    <p:column headerText="Código">
-                        <p:outputLabel value="#{objeto.funcionario.codigoFuncionario}"/>
-                    </p:column>
-                    <p:column headerText="Ações">
-                        <div align="center">
-                            <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id)}" ajax="false"
-                                             icon="pi pi-pencil" title="Editar"/>
-                            <p:commandButton action="#{CrachaFuncionarioController.remover(objeto.id)}" ajax="false"
-                                             icon="pi pi-trash" title="Remover" update="@form"
-                                             onclick="if (!confirm('Confirma a exclusão?')) return false"/>
-                        </div>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </div>
-
-        <div id="south">
-            <ui:include src="/templates/ajaxstatus.xhtml"/>
-            <div align="center">Sistema do projeto para estudo</div>"
-        </div>
-
+        </ui:composition>
     </h:body>
 </f:view>
 </html>

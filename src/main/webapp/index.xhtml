@@ -7,64 +7,13 @@
       xmlns:p="http://primefaces.org/ui">
 <f:view encoding ="ISO_8859-1" contentType="text/html">
     <h:head>
-        <title>Gerador de Crachás</title>
-        <h:outputStylesheet library="css" name="estilos.css"/>
-        <h:outputScript library="js" name="scripts.js"/>
     </h:head>
 
     <h:body style="text-align: center">
-        <div id="north">
-            <h:form id="menu">
-                <p:megaMenu>
-                    <p:menuitem label="Início" value="Início" ajax="false" action="/index"/>
-<!--                        <p:column>-->
-<!--                            <p:submenu label="Funcionários">-->
-<!--                                <p:menuitem-->
-<!--                                            value="Importar csv"-->
-<!--                                            ajax="false"-->
-<!--                                            target="_blank"/>-->
-<!--                                <p:menuitem-->
-<!--                                        value="Cadastro manual"-->
-<!--                                        ajax="false"-->
-<!--                                        target="_blank"/>-->
-<!--                            </p:submenu>-->
-<!--                        </p:column>-->
-<!--                    </p:submenu>-->
-                    <p:submenu label="Dados">
-                        <p:column>
-                            <p:submenu label="Funcionários">
-                                <p:menuitem
-                                            value="Funcionários"
-                                            ajax="false" target="_blank"/>
-                                <p:menuitem
-                                        action="#{CrachaFuncionarioController.listar()}"
-                                        value="Crachás"
-                                        ajax="false"/>
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>
-                    <p:submenu label="Cadastros">
-                        <p:column>
-                            <p:submenu label="Funcionários">
-                                <p:menuitem value="Importar .CSV"
-                                            ajax="false"
-                                            target="_blank"/>
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>
-                </p:megaMenu>
-            </h:form>
-        </div>
-
-        <div id = "center">
-            <h1>Sistema</h1>
-        </div>
-
-        <div id="south">
-            <ui:include src="/templates/ajaxstatus.xhtml"/>
-            <div align="center">Sistema do projeto para estudo</div>"
-        </div>
-
+        <ui:composition template="templates/template.xhtml">
+            <ui:define name="pageTitle">Gerador de Crachás</ui:define>
+            <ui:define name="content"><h1>Sistema</h1></ui:define>
+        </ui:composition>
     </h:body>
 </f:view>
 </html>
