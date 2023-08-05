@@ -18,7 +18,7 @@ public class CrachaFuncionario implements Serializable {
 
     private LocalDate admissaoFuncionario;
 
-    @Column(name="codigoFuncionario", length = 4)
+    @Column(name="codigoFuncionario", length = 8)
     private Long codigoFuncionario;
 
     @Lob

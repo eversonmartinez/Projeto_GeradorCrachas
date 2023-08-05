@@ -67,4 +67,12 @@ public class Funcionario implements Serializable {
         this.codigo = codigo;
         cracha.setCodigoFuncionario(this.codigo);
     }
+
+    public CrachaFuncionario getCracha() {
+        return cracha;
+    }
+
+    public void setCracha(CrachaFuncionario cracha) {
+        this.cracha = cracha;
+    }
 }
