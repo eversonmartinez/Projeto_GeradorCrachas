@@ -4,6 +4,7 @@ import com.pavani.geradorcrachas.dao.LayoutCrachaDao;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
+import com.pavani.geradorcrachas.util.FontUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -103,15 +104,25 @@ public class GeradorCrachaService {
         int x = 0;
         int y = 1;
 
-        graphicImage.setFont(new Font("Akhbar", Font.BOLD, layout.getTamanhoFonteNome()));
+        graphicImage.setFont(FontUtil.customFontBold(layout.getTamanhoFonteNome()));
         graphicImage.setPaint(Color.white);
         graphicImage.drawString(nome, layout.getPosicaoNome()[x], layout.getPosicaoNome()[y]);
 
-        graphicImage.setFont(new Font("Akhbar", Font.TRUETYPE_FONT, layout.getTamanhoFonteDescricao()));
+//        graphicImage.setFont(FontUtil.customFont(layout.getTamanhoFonteDescricao()));
+        graphicImage.setFont(FontUtil.fontSofiaPro(layout.getTamanhoFonteDescricao()));
         graphicImage.drawString(escreverData(admissao), layout.getPosicaoAdmissao()[x], layout.getPosicaoAdmissao()[y]);
+
+
         graphicImage.drawString(String.valueOf(codigo), layout.getPosicaoCodigo()[x], layout.getPosicaoCodigo()[y]);
 
-        graphicImage.setFont(new Font("Akhbar", Font.BOLD, layout.getTamanhoFonteApelido()));
+        if(apelido.length() < 9)
+            graphicImage.setFont(FontUtil.customFontBold(layout.getTamanhoFonteApelido()));
+
+        else{
+            int diferenca = apelido.length() - 8;
+            graphicImage.setFont(FontUtil.customFontBold(layout.getTamanhoFonteApelido() - (8*diferenca)));
+        }
+
         graphicImage.drawString(apelido, layout.getPosicaoApelido()[x], layout.getPosicaoApelido()[y]);
 
         graphicImage.drawImage(fotoFuncionario, layout.getPosicaoImagem()[x], layout.getPosicaoImagem()[y],

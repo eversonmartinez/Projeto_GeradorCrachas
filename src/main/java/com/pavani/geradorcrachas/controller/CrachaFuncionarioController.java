@@ -11,6 +11,7 @@ import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 import java.io.*;
@@ -51,7 +52,7 @@ public class CrachaFuncionarioController implements Serializable {
         gravou = (objeto.getId() == null ? dao.persist(objeto) : dao.merge(objeto));
         if(gravou){
             MessageUtil.infoMessage(dao.getMensagem());
-            file = null;
+            limparController();
             return "listar?faces-redirect=true";
         }
 
@@ -81,6 +82,7 @@ public class CrachaFuncionarioController implements Serializable {
     }
 
     public String cancelar(){
+        limparController();
         return "listar?faces-redirect=true";
     }
 
@@ -137,8 +139,13 @@ public class CrachaFuncionarioController implements Serializable {
         return("/images/crachas/none");
     }
 
-    public void previewCracha(){
+    public StreamedContent previewCracha(){
         upload();
+        ImageView view = new ImageView();
+        if(this.objeto.getFoto() == null)
+            fotoVazia();
+
+        return view.previewCracha(this.objeto, this.layout);
     }
 
     public boolean gerarCracha(){
@@ -200,5 +207,10 @@ public class CrachaFuncionarioController implements Serializable {
 
     public LayoutCracha getLayout() {
         return layout;
+    }
+
+    private void limparController(){
+        objeto = null;
+        file = null;
     }
 }
