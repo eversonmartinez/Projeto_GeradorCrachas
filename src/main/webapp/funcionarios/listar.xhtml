@@ -9,12 +9,12 @@
 
     <h:body>
         <ui:composition template="../templates/template.xhtml">
-            <ui:define name="pageTitle">Listagem de Crachás</ui:define>
+            <ui:define name="pageTitle">Listagem de Funcionários</ui:define>
             <ui:define name="content">
                 <h:form>
                     <p:messages/>
                     <p:growl/>
-                    <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
+                    <p:commandButton value="Novo" action="#{FuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
                     <div align="center">
                         <p:panelGrid columns="10">
                             <p:outputLabel value = "Ordem:"/>
@@ -50,9 +50,9 @@
                         </p:column>
                         <p:column headerText="Ações">
                             <div align="center">
-                                <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id)}" ajax="false"
+                                <p:commandButton action="#{Controller.editar(objeto.id)}" ajax="false"
                                                  icon="pi pi-pencil" title="Editar"/>
-                                <p:commandButton action="#{CrachaFuncionarioController.remover(objeto.id)}" ajax="false"
+                                <p:commandButton action="#{FuncionarioController.remover(objeto.id)}" ajax="false"
                                                  icon="pi pi-trash" title="Remover" update="@form"
                                                  onclick="if (!confirm('Confirma a exclusão?')) return false"/>
                             </div>

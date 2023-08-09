@@ -15,8 +15,8 @@
                     <p:row>
                         <p:column styleClass="sixty-percent">
                             <h:form enctype="multipart/form-data">
-
-                            <p:growl/>
+                                <p:growl id="messages" showDetail="true"/>
+                                <p:messages/>
                                 <div align="center">
 
                                     <p:panelGrid columns="2" style="display: inline-block; float: left">
@@ -45,10 +45,11 @@
 
                                         <p:outputLabel value="Foto" for="uploadPhoto"/>
                                         <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
-                                                      allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" fileLimit="1" multiple="false"
+                                                      auto="true" allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" multiple="false"
                                                       invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
                                                       invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
                                                       fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
+                                                      process="@this" update="messages"
                                         />
 
                                         <f:facet name="footer">
@@ -85,6 +86,9 @@
                         </p:column>
                     </p:row>
                 </p:panelGrid>
+
+                <h:outputScript library="js" name="cropper.min.js"></h:outputScript>
+                <h:outputScript library="js" name="crachas-funcionarios.js"></h:outputScript>
             </ui:define>>
 
             <ui:define name="dialogos">

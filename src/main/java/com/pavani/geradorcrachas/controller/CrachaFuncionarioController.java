@@ -7,6 +7,7 @@ import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
 import com.pavani.geradorcrachas.util.MessageUtil;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
 import jakarta.faces.context.FacesContext;
@@ -113,8 +114,14 @@ public class CrachaFuncionarioController implements Serializable {
         return false;
     }
 
-    public void uploadTemporario(FileUploadEvent event) throws IOException {
+    public void uploadTemporario(FileUploadEvent event){
         file = event.getFile();
+        if(file == null){
+            MessageUtil.infoMessage("Sucesso", file.getFileName() + " carregado temporariamente para pré-visualização");
+            return;
+        }
+
+        MessageUtil.errorMessage("Erro", "O arquivo" + file.getFileName() + "não pôde ser carregado!");
     }
 
     private byte[] toByteArrayUsingJava(InputStream inputS) throws IOException{

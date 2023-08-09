@@ -12,11 +12,11 @@
             <ui:define name="pageTitle">Listagem de Crachás</ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:messages/>
-                    <p:growl/>
+                    <p:messages showDetail="true"/>
+                    <p:growl showDetail="true"/>
                     <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
                     <div align="center">
-                        <p:panelGrid columns="11">
+                        <p:panelGrid columns="11" id="headerListagem">
                             <p:outputLabel value = "Filtro:"/>
                             <p:selectOneMenu value="#{CrachaFuncionarioController.dao.ordem}">
                                 <f:selectItem itemLabel="ID" itemValue="id"/>
