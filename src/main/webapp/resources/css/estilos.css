@@ -57,13 +57,15 @@
 }
 
 .top{
-    margin: 15px;
+    margin: 5px;
     text-align: center;
 }
 
 .content{
-    text-align: center;
-    margin: 0px auto 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
 }
 
 .bottom{
@@ -76,4 +78,10 @@
     background-color: rgba(0,0,0,0.63);
     border: black 1px;
     color: #c7c7c7;
+}
+
+.headerListagem{
+    margin: 30px auto;
+    padding: 20px;
+    background-color: yellow;
 }
