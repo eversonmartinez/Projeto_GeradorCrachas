@@ -48,21 +48,6 @@ public class GeradorCrachaService {
         this.layout = layout;
     }
 
-
-//    public void puxarLayout() throws IOException {
-//        String path = this.getClass().getResource("../../../../").getPath();
-//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-//        String path = ec.getRealPath("/");
-//        layout = new File(System.getProperty("java.io.tmpdir"), "temporary1");
-//        System.out.println(layout.getAbsolutePath());
-//
-//        FileOutputStream out = new FileOutputStream(layout);
-//        LayoutCracha arquivoBanco = new LayoutCrachaDao().getDefault();
-//        out.write(arquivoBanco.getImagem());
-//        if(layout == null)
-//            throw new IOException("Layout não foi encontrado no servidor");
-//    }
-
     public void preview(){}
 
     public byte[] gerarCracha(CrachaFuncionario informacoes) throws IOException {
@@ -87,11 +72,16 @@ public class GeradorCrachaService {
         if(fotoCracha == null)
             throw new GeradorCrachaException("Imagem de funcionário inválida");
 
-        File imagemLayout = new File(System.getProperty("java.io.tmpdir"), "temporary1");
+        String nome1 = randomName();
+        String nome2 = randomName();
+        while(nome2.equals(nome1));
+            nome2=randomName();
+
+        File imagemLayout = new File(System.getProperty("java.io.tmpdir"), "nome1");
         FileOutputStream out = new FileOutputStream(imagemLayout);
         out.write(this.layout.getImagem());
 
-        File foto = new File(System.getProperty("java.io.tmpdir"), "temporary2");
+        File foto = new File(System.getProperty("java.io.tmpdir"), "nome2");
         foto.createNewFile();
         out = new FileOutputStream(foto);
         out.write(fotoCracha);
@@ -147,6 +137,11 @@ public class GeradorCrachaService {
 
     public static byte[] crachaVazioSemLayout(){
         return new LayoutCrachaDao().getDefault().getImagem();
+    }
+
+    private String randomName(){
+        int i = (int) (Math.random() * 50);
+        return "temporary" + i;
     }
 
     private String escreverData(LocalDate data){
