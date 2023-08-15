@@ -49,14 +49,14 @@
                                                       invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
                                                       invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
                                                       fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
-                                                      process="@this" update="messages"
+                                                      process="@this" update="messages formCropper"
                                         />
 
                                         <f:facet name="footer">
                                             <div align="center">
                                                 <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
                                                 <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
-                                                <p:commandButton value="Pré-visualizar" action="#{CrachaFuncionarioController.previewCracha()}" process="@form" update="previewImage"
+                                                <p:commandButton value="Pré-visualizar" action="#{CrachaFuncionarioController.handlePreviewCracha()}" process="@form" update="previewImage, formCropper"
                                                                  icon="pi pi-eye" oncomplete="PF('dlg').show();"/>
                                             </div>
                                         </f:facet>
@@ -67,9 +67,7 @@
 
                         <p:column styleClass="forty-percent">
                             <h:form>
-                            <p:panelGrid columns="1" style="display: inline-block; float: left
-    ">
-
+                            <p:panelGrid columns="1" style="display: inline-block; float: left">
                                 <f:facet name="header">
                                     <p:outputLabel value="Crachá"/>
                                 </f:facet>
@@ -80,7 +78,6 @@
                                         <h:outputLink value="#{CrachaFuncionarioController.downloadCracha()}}" ajax="false" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only downloadButton"><i class="pi pi-arrow-circle-down"/> Baixar</h:outputLink>
                                     </div>
                                 </f:facet>
-
                             </p:panelGrid>
                         </h:form>
                         </p:column>
@@ -92,10 +89,22 @@
             </ui:define>>
 
             <ui:define name="dialogos">
-                <p:dialog widgetVar="dlg" modal="true" header="Pré-visualização" height="405" blockScroll="true" >
+                <p:dialog widgetVar="dlg" modal="true" header="Pré-visualização" blockScroll="true" height="500px" width="700px">
                     <div align="center">
-                        <p:graphicImage id="previewImage" value="#{ImageView.previewCracha(CrachaFuncionarioController.objeto, CrachaFuncionarioController.layout)}" styleClass="formImage"
-                                        cache="false"/>
+                            <h:panelGrid columns="2">
+                                <p:graphicImage id="previewImage"
+                                                value="#{ImageView.previewCracha(CrachaFuncionarioController.objetoPreview(), CrachaFuncionarioController.layout)}"
+                                                styleClass="formCropperImage" cache="false"/>
+                                <h:form id="formCropper">
+                                    <h:panelGroup id="cropperPanel" styleClass="cropperPanel">
+                                        <p:imageCropper value="#{CrachaFuncionarioController.croppedFile}" image="#{ImageView.cropper(CrachaFuncionarioController.objeto)}"
+                                                        styleClass="cropperImage" cache="false" viewMode="1" aspectRatio="1" id="cropperImage"/>
+                                        <p:commandButton value="Crop" action="#{CrachaFuncionarioController.crop()}" update="previewImage cropperImage"/>
+                                        <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.saveCrop()}" update="cropperPanel"
+                                                         oncomplete="{PF('dlg').hide()}"/>
+                                    </h:panelGroup>
+                                </h:form>
+                            </h:panelGrid>
                     </div>
                 </p:dialog>
             </ui:define>

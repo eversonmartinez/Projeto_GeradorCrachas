@@ -1,20 +1,11 @@
 package com.pavani.geradorcrachas.controller;
 
-import com.pavani.geradorcrachas.dao.CrachaFuncionarioDao;
 import com.pavani.geradorcrachas.dao.FuncionarioDao;
-import com.pavani.geradorcrachas.dao.LayoutCrachaDao;
-import com.pavani.geradorcrachas.model.entities.Cracha;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.Funcionario;
-import com.pavani.geradorcrachas.model.entities.LayoutCracha;
-import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
 import com.pavani.geradorcrachas.util.MessageUtil;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.context.FacesContext;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

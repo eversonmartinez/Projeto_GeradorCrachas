@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.OutputStream;
 
+//NAO ACHEI USO PARA ESSE, VERIFICAR DEPOIS
 @WebServlet("/images/*")
 public class ImageServlet extends HttpServlet {
 

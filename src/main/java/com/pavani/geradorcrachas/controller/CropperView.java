@@ -18,18 +18,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 
 @Named
 @RequestScoped
-@ManagedBean (name = "ImageView")
-public class ImageView implements Serializable {
+@ManagedBean (name = "CropperView")
+public class CropperView implements Serializable {
 
-    public ImageView (){
+    public CropperView(){
     }
 
     public StreamedContent previewCracha(CrachaFuncionario informacoes, LayoutCracha layout){

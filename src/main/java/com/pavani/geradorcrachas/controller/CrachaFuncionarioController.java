@@ -7,15 +7,19 @@ import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
 import com.pavani.geradorcrachas.util.MessageUtil;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.CroppedImage;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
+import javax.imageio.stream.FileImageOutputStream;
 import java.io.*;
+import java.nio.file.Files;
 
 @ManagedBean(name = "CrachaFuncionarioController")
 @SessionScoped
@@ -29,6 +33,52 @@ public class CrachaFuncionarioController implements Serializable {
     private LayoutCracha layout;
 
     private transient UploadedFile file;
+    private transient CroppedImage croppedFile;
+    private transient CroppedImage backupCroppedFile;
+    private transient byte[] fotoFuncionarioRecortada;
+    private boolean cropperAtivo = false;
+
+    private StreamedContent previewCropper;
+
+    public void saveCrop(){
+        this.objeto.setFoto(fotoFuncionarioRecortada);
+    }
+
+    public void crop(){
+        if(croppedFile == null)
+            return;
+
+        String imageName = getRandomImageName();
+
+        FileImageOutputStream imageOutput;
+        try{
+            File cropped = new File(System.getProperty("java.io.tmpdir"), imageName);
+            imageOutput = new FileImageOutputStream(cropped);
+            imageOutput.write(croppedFile.getBytes(), 0, croppedFile.getBytes().length);
+            imageOutput.close();
+            this.fotoFuncionarioRecortada = Files.readAllBytes(cropped.toPath());
+            croppedFile = backupCroppedFile;
+            backupCroppedFile = null;
+        }catch(Exception e){
+            MessageUtil.errorMessage("Erro", "Falha no serviço de recorte de imagens");
+        }
+
+        MessageUtil.infoMessage("Sucesso");
+    }
+
+    private String getRandomImageName(){
+        int i = (int) (Math.random() * 50);
+
+        return "crop-" + i;
+    }
+
+    public CroppedImage getCroppedFile() {
+        return croppedFile;
+    }
+
+    public void setCroppedFile(CroppedImage croppedFile) {
+        this.croppedFile = croppedFile;
+    }
 
     public CrachaFuncionarioController(){
         dao=new CrachaFuncionarioDao();
@@ -96,32 +146,31 @@ public class CrachaFuncionarioController implements Serializable {
     }
 
     public boolean upload(){
-        if(file != null){
-            try {
-                byte[] arquivoByte = toByteArrayUsingJava(file.getInputStream());
+        if(file != null && fotoFuncionarioRecortada == null) {
+                try {
+                    byte[] arquivoByte = toByteArrayUsingJava(file.getInputStream());
 
-                objeto.setFoto(arquivoByte);
+                    objeto.setFoto(arquivoByte);
 
-                MessageUtil.infoMessage("File Uploaded");
-                return true;
-            }catch(IOException e){
-                e.printStackTrace();
-                MessageUtil.errorMessage("Não foi possível salvar o arquivo");
-                return false;
+                    MessageUtil.infoMessage("File Uploaded");
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    MessageUtil.errorMessage("Não foi possível salvar o arquivo");
+                    return false;
+                }
             }
-        }
-
         return false;
     }
 
     public void uploadTemporario(FileUploadEvent event){
         file = event.getFile();
         if(file == null){
-            MessageUtil.infoMessage("Sucesso", file.getFileName() + " carregado temporariamente para pré-visualização");
+            MessageUtil.errorMessage("Erro", "O arquivo" + file.getFileName() + "não pôde ser carregado!");
             return;
         }
-
-        MessageUtil.errorMessage("Erro", "O arquivo" + file.getFileName() + "não pôde ser carregado!");
+        fotoFuncionarioRecortada = null;
+        MessageUtil.infoMessage("Sucesso", file.getFileName() + " carregado temporariamente para pré-visualização");
     }
 
     private byte[] toByteArrayUsingJava(InputStream inputS) throws IOException{
@@ -134,11 +183,6 @@ public class CrachaFuncionarioController implements Serializable {
         return byteArrayOtpS.toByteArray();
     }
 
-    //TEMPORARIAMENTE SENDO UTILIZADO PARA PEGAR UMA FOTO DO BANCO E SALVAR NA MINHA MÁQUINA
-    public void testFoto() throws IOException {
-        dao.testeGetFoto(objeto.getId());
-    }
-
     public String mostrarCracha(){
         if(objeto.getId()!=null)
             return("/images/crachas/" + objeto.getId());
@@ -146,13 +190,13 @@ public class CrachaFuncionarioController implements Serializable {
         return("/images/crachas/none");
     }
 
-    public StreamedContent previewCracha(){
+    public void handlePreviewCracha(){
         upload();
-        ImageView view = new ImageView();
-        if(this.objeto.getFoto() == null)
+        if(objeto.getFoto() == null)
             fotoVazia();
 
-        return view.previewCracha(this.objeto, this.layout);
+        if(croppedFile != null)
+            backupCroppedFile = croppedFile;
     }
 
     public boolean gerarCracha(){
@@ -200,6 +244,24 @@ public class CrachaFuncionarioController implements Serializable {
         }
     }
 
+    public CrachaFuncionario objetoPreview(){
+        if(fotoFuncionarioRecortada == null)
+            return this.objeto;
+
+        CrachaFuncionario crachaCropped = this.objeto;
+        crachaCropped.setFoto(fotoFuncionarioRecortada);
+        return crachaCropped;
+    }
+
+    public StreamedContent getPreviewCropper(){
+        return this.previewCropper;
+    }
+
+    public void showPreviewCropper(){
+        this.previewCropper = null;
+        this.previewCropper = new ImageView().cropper(this.objeto);
+    }
+
     public CrachaFuncionarioDao getDao(){
         return dao;
     }
@@ -219,5 +281,9 @@ public class CrachaFuncionarioController implements Serializable {
     private void limparController(){
         objeto = null;
         file = null;
+        croppedFile = null;
+        fotoFuncionarioRecortada = null;
+        cropperAtivo = false;
+        this.previewCropper = null;
     }
 }
