@@ -25,10 +25,10 @@ public class CrachaFuncionarioDao extends Dao<CrachaFuncionario>{
 
     @Override
     public List<CrachaFuncionario> getListaTodos(){
-       em.getTransaction().begin();
+       //em.getTransaction().begin();
         String jpql = "from CrachaFuncionario";
         List<CrachaFuncionario> listaRetorno = em.createQuery(jpql).getResultList();
-        em.getTransaction().commit();
+        //em.getTransaction().commit();
         return listaRetorno;
     }
 }

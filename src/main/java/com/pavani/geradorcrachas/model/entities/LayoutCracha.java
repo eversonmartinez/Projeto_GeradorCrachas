@@ -73,11 +73,11 @@ public class LayoutCracha implements Serializable {
         posicaoAdmissao = new int[] {60, 191};
         posicaoCodigo = new int[] {65, 231};
         posicaoApelido = new int[] {60, 362};
-        posicaoImagem = new int[] {0, 373};
+        posicaoImagem = new int[] {0, 388};
     }
 
     private void tamanhosDefault(){
-        tamanhoImagem = new int[] {638, 638};
+        tamanhoImagem = new int[] {638, 623};
         tamanhoFonteNome = 38;
         tamanhoFonteDescricao = 35;
         tamanhoFonteApelido = 104;

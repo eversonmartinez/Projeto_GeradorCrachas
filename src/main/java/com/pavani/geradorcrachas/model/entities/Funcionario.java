@@ -23,7 +23,7 @@ public class Funcionario implements Serializable {
     @NotNull
     private Long codigo;    //código de que?
 
-    @OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private CrachaFuncionario cracha;
 
     public Funcionario(){
