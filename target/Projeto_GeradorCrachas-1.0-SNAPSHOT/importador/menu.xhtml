@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view encoding ="ISO_8859-1" contentType="text/html">
+    <h:body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="pageTitle">Importador de Funcionários</ui:define>
+            <ui:define name="content">
+                <p:column styleClass="sixty-percent">
+                    <h:form enctype="multipart/form-data">
+
+                        <p:growl/>
+                        <div align="center">
+
+                            <p:panelGrid columns="1">
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="Importador"/>
+                                </f:facet>
+
+                                <p:fileUpload listener="#{ImportadorController.upload}" id="uploadFile"
+                                              label="Insira aqui o arquivo .txt"
+                                              allowTypes="/(\.|\/)(txt)$/" sizeLimit="5000000" fileLimit="1" multiple="false"
+                                              invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
+                                              invalidFileMessage="São aceitos apenas arquivos .txt"
+                                              fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
+                                              update="message"
+                                />
+                                <p:outputLabel id="message" for="uploadFile" value="#{ImportadorController.uploadMessage()}"/>
+
+                                <f:facet name="footer">
+                                    <div align="center">
+                                        <p:commandButton value="Importar" action="#{ImportadorController.importarArquivo()}" ajax="false" icon="pi pi-inbox"/>
+                                    </div>
+                                </f:facet>
+                            </p:panelGrid>
+                        </div>
+                    </h:form>
+                </p:column>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+
+</html>

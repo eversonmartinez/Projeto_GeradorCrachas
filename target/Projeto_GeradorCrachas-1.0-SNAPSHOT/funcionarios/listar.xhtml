@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view encoding ="ISO_8859-1" contentType="text/html">
+
+    <h:body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="pageTitle">Listagem de Funcionários</ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <p:messages/>
+                    <p:growl/>
+                    <p:commandButton value="Novo" action="#{FuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
+                    <div align="center">
+                        <p:panelGrid columns="11">
+                            <p:outputLabel value = "Ordem:"/>
+                            <p:selectOneMenu value="#{FuncionarioController.dao.ordem}">
+                                <f:selectItem itemLabel="ID" itemValue="id"/>
+                                <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                                <f:selectItem itemLabel="Código" itemValue="codigo"/>
+                                <p:ajax update="listagem"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Pesquisa:"/>
+                            <p:inputText size="20" value="#{FuncionarioController.dao.filtro}"></p:inputText>
+                            <p:commandButton value="Pesquisar" icon="pi pi-search" update="listagem"/>
+                            <p:outputLabel value="Máximo de objetos"/>
+                            <p:inputNumber value="#{FuncionarioController.dao.maximoObjetos}" decimalPlaces="0" decimalSeparator=""
+                                           thousandSeparator=""/>
+                            <p:commandButton value="Primeira" icon="pi pi-fast-backward"
+                                             actionListener="#{FuncionarioController.dao.primeiraPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{FuncionarioController.dao.anteriorPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{FuncionarioController.dao.proximaPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Última" icon="pi pi-fast-forward" actionListener="#{FuncionarioController.dao.ultimaPagina()}"
+                                             update="listagem"/>
+                        </p:panelGrid>
+                    </div>
+
+                    <p:dataTable value="#{FuncionarioController.dao.listaObjetos}" var="objeto" id="listagem">
+                        <f:facet name="footer">
+                            <p:outputLabel value="#{FuncionarioController.dao.mensagemNavegaco}"/>
+                        </f:facet>
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{objeto.id}"/>
+                        </p:column>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{objeto.nome}"/>
+                        </p:column>
+                        <p:column headerText="Código">
+                            <p:outputLabel value="#{objeto.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Admissão">
+                            <p:outputLabel value="#{objeto.admissao}"/>
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id)}" ajax="false"
+                                                 icon="pi pi-pencil" title="Editar"/>
+                                <p:commandButton action="#{FuncionarioController.remover(objeto.id)}" ajax="false"
+                                                 icon="pi pi-trash" title="Remover" update="@form"
+                                                 onclick="if (!confirm('Confirma a exclusão?')) return false"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>
