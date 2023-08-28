@@ -6,6 +6,7 @@ import com.pavani.geradorcrachas.model.entities.Cracha;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 import com.pavani.geradorcrachas.service.GeradorCrachaService;
+import com.sun.tools.jconsole.JConsoleContext;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import jakarta.faces.context.FacesContext;
@@ -59,6 +60,33 @@ public class ImageView implements Serializable {
         return stream;
     }
 
+    public StreamedContent previewCracha(LayoutCracha layout){
+        System.out.println("entrouuu");
+        byte[] buffer;
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        if(fc.getRenderResponse() || fc.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE){
+            return new DefaultStreamedContent();
+        }
+
+        if(layout.getImagem() == null)
+            return noImage();
+
+        GeradorCrachaService service = new GeradorCrachaService(layout);
+
+        try {
+            buffer = service.gerarTesteLayout();
+        }catch (IOException ex){
+            buffer = GeradorCrachaService.crachaVazioSemLayout();
+        }
+
+        InputStream input = new ByteArrayInputStream(buffer);
+        StreamedContent stream = DefaultStreamedContent.builder().contentType("image/png").stream(() -> input).build();//DefaultStreamedContent(input, "image/jpeg");
+        return stream;
+    }
+
+
+
     public StreamedContent downloadCracha(Long id){
         byte[] buffer;
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -105,7 +133,7 @@ public class ImageView implements Serializable {
         return stream;
     }
 
-    public StreamedContent visualizacaoBytes(byte[] bytes){
+    public static StreamedContent visualizacaoBytes(byte[] bytes){
         byte[] buffer;
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -118,6 +146,22 @@ public class ImageView implements Serializable {
         InputStream input = new ByteArrayInputStream(buffer);
         StreamedContent stream = DefaultStreamedContent.builder().contentType("image/png").stream(() -> input).build();//DefaultStreamedContent(input, "image/jpeg");
         return stream;
+    }
+
+    public static StreamedContent visualizacaoInputStream(InputStream input){
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        if(fc.getRenderResponse() || fc.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE){
+            return new DefaultStreamedContent();
+        }
+
+        return DefaultStreamedContent.builder().contentType("image/png").stream(() -> input).build();//DefaultStreamedContent(input, "image/jpeg");
+    }
+
+    public static StreamedContent noImage(){
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classLoader.getResourceAsStream("layout-cracha\\no-image.png");
+        return visualizacaoInputStream(is);
     }
 
 }

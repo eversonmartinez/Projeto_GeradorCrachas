@@ -6,6 +6,7 @@ import com.pavani.geradorcrachas.model.entities.Cracha;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.LayoutCracha;
 import com.pavani.geradorcrachas.model.exceptions.GeradorCrachaException;
+import com.pavani.geradorcrachas.service.ConversorBytesService;
 import com.pavani.geradorcrachas.util.MessageUtil;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
@@ -104,7 +105,7 @@ public class CrachaFuncionarioController implements Serializable {
         if(gravou){
             MessageUtil.infoMessage(dao.getMensagem());
             limparController();
-            return "listar?faces-redirect=true";
+            return "/funcionarios/listar?faces-redirect=true";
         }
 
         else{
@@ -119,7 +120,7 @@ public class CrachaFuncionarioController implements Serializable {
             objeto = null;
         }
         objeto = dao.findById(id);
-        return("formulario?faces-redirect=true");
+        return("/crachas-funcionarios/formulario?faces-redirect=true");
     }
 
     public void remover(Long id){
@@ -134,7 +135,7 @@ public class CrachaFuncionarioController implements Serializable {
 
     public String cancelar(){
         limparController();
-        return "listar?faces-redirect=true";
+        return "/funcionarios/listar?faces-redirect=true";
     }
 
     public UploadedFile getFile() {
@@ -148,7 +149,7 @@ public class CrachaFuncionarioController implements Serializable {
     public boolean upload(){
         if(file != null && fotoFuncionarioRecortada == null) {
                 try {
-                    byte[] arquivoByte = toByteArrayUsingJava(file.getInputStream());
+                    byte[] arquivoByte = ConversorBytesService.toByteArrayUsingIS(file.getInputStream());
 
                     objeto.setFoto(arquivoByte);
 
@@ -173,15 +174,15 @@ public class CrachaFuncionarioController implements Serializable {
         MessageUtil.infoMessage("Sucesso", file.getFileName() + " carregado temporariamente para pré-visualização");
     }
 
-    private byte[] toByteArrayUsingJava(InputStream inputS) throws IOException{
-        ByteArrayOutputStream byteArrayOtpS = new ByteArrayOutputStream();
-        int readByte = inputS.read();
-        while (readByte != -1){
-            byteArrayOtpS.write(readByte);
-            readByte = inputS.read();
-        }
-        return byteArrayOtpS.toByteArray();
-    }
+//    private byte[] toByteArrayUsingJava(InputStream inputS) throws IOException{
+//        ByteArrayOutputStream byteArrayOtpS = new ByteArrayOutputStream();
+//        int readByte = inputS.read();
+//        while (readByte != -1){
+//            byteArrayOtpS.write(readByte);
+//            readByte = inputS.read();
+//        }
+//        return byteArrayOtpS.toByteArray();
+//    }
 
     public String mostrarCracha(){
         if(objeto.getId()!=null)
@@ -237,7 +238,7 @@ public class CrachaFuncionarioController implements Serializable {
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 InputStream is = classLoader.getResourceAsStream("layout-cracha\\no-image.png");
-                objeto.setFoto(toByteArrayUsingJava(is));
+                objeto.setFoto(ConversorBytesService.toByteArrayUsingIS(is));
             }catch(IOException ioe) {
                 return;
             }

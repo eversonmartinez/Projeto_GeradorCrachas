@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view encoding ="ISO_8859-1" contentType="text/html">
+    <h:body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="pageTitle">Edição de layouts</ui:define>
+            <ui:define name="content">
+                <p:panelGrid columns="2" columnClasses="sixty-percent, forty-percent" styleClass="customPanelGrid">
+                    <p:row>
+                        <p:column styleClass="sixty-percent">
+                            <h:form enctype="multipart/form-data">
+
+                            <p:growl/>
+                                <div align="center">
+
+                                    <p:panelGrid columns="2" style="display: inline-block; float: left">
+
+                                        <f:facet name="header">
+                                            <p:outputLabel value="Métricas"/>
+                                        </f:facet>
+
+                                        <p:outputLabel value="ID"/>
+                                        <p:inputText value="#{LayoutCrachaController.objeto.id}" size="5" readonly="true"/>
+
+                                        <p:outputLabel value="Nome" for="txtNome"/>
+                                        <p:inputText value="#{LayoutCrachaController.objeto.nome}"  id="txtNome" size="20" maxlength="20"
+                                                     placeholder="Obrigatório"/>
+
+                                        <p:outputLabel value="Posição Texto Nome do Funcionário" for="txtPosicaoNomeX"/>
+                                        <p:column>
+                                            <p:outputLabel value="X: " for="txtPosicaoNomeX"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoNomeX}" id="txtPosicaoNomeX" inputStyleClass="inputMenor"/>
+                                            <p:outputLabel value="Y: " for="txtPosicaoNomeY"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoNomeY}" id="txtPosicaoNomeY" inputStyleClass="inputMenor"/>
+                                        </p:column>
+
+                                        <p:outputLabel value="Tamanho para a Fonte do Texto Nome" for="txtTamanhoNome"/>
+                                        <p:inputNumber value="#{LayoutCrachaController.objeto.tamanhoFonteNome}" id="txtTamanhoNome" size="3"/>
+
+                                        <p:outputLabel value="Posição Texto Data de Admissão" for="txtAdmissaoX"/>
+                                        <p:column>
+                                            <p:outputLabel value="X: " for="txtAdmissaoX"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoAdmissaoX}" id="txtAdmissaoX" inputStyleClass="inputMenor"/>
+                                            <p:outputLabel value="Y: " for="txtAdmissaoY"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoAdmissaoY}" id="txtAdmissaoY" inputStyleClass="inputMenor"/>
+                                        </p:column>
+
+                                        <p:outputLabel value="Posição Texto Código" for="txtCodigoX"/>
+                                        <p:column>
+                                            <p:outputLabel value="X: " for="txtCodigoX"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoCodigoX}" id="txtCodigoX" inputStyleClass="inputMenor"/>
+                                            <p:outputLabel value="Y: " for="txtCodigoY"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoCodigoY}" id="txtCodigoY" inputStyleClass="inputMenor"/>
+                                        </p:column>
+
+                                        <p:outputLabel value="Tamanho para a Fonte do Texto Descrição" for="txtTamanhoDescricao"/>
+                                        <p:inputNumber value="#{LayoutCrachaController.objeto.tamanhoFonteDescricao}" id="txtTamanhoDescricao" size="3"/>
+
+                                        <p:outputLabel value="Posição Texto Apelido" for="txtApelidoX"/>
+                                        <p:column>
+                                            <p:outputLabel value="X: " for="txtApelidoX"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoApelidoX}" id="txtApelidoX" inputStyleClass="inputMenor"/>
+                                            <p:outputLabel value="Y: " for="txtApelidoY"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoApelidoY}" id="txtApelidoY" inputStyleClass="inputMenor"/>
+                                        </p:column>
+
+                                        <p:outputLabel value="Tamanho para a Fonte do Texto Apelido" for="txtTamanhoApelido"/>
+                                        <p:inputNumber value="#{LayoutCrachaController.objeto.tamanhoFonteApelido}" id="txtTamanhoApelido" size="3"/>
+
+                                        <p:outputLabel value="Posição Imagem do Funcionário" for="txtImagemX"/>
+                                        <p:column>
+                                            <p:outputLabel value="X: " for="txtImagemX"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoImagemX}" id="txtImagemX" inputStyleClass="inputMenor"/>
+                                            <p:outputLabel value="Y: " for="txtImagemY"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.posicaoImagemY}" id="txtImagemY" inputStyleClass="inputMenor"/>
+                                        </p:column>
+
+                                        <p:outputLabel value="Tamanho para a Foto do Funcionário" for="txtTamanhoImagemX"/>
+                                        <p:column>
+                                        <p:outputLabel value="Largura: " for="txtTamanhoImagemX"/>
+                                        <p:inputNumber value="#{LayoutCrachaController.objeto.tamanhoImagemX}" id="txtTamanhoImagemX" inputStyleClass="inputMenor"/>
+                                        <p:outputLabel value="Altura: " for="txtTamanhoImagemY"/>
+                                            <p:inputNumber value="#{LayoutCrachaController.objeto.tamanhoImagemY}" id="txtTamanhoImagemY" inputStyleClass="inputMenor"/>
+                                        </p:column>
+
+                                        <p:outputLabel value="Imagem Layout" for="uploadPhoto"/>
+                                        <p:fileUpload listener="#{LayoutCrachaController.uploadTemporario}" id="uploadPhoto"
+                                                      auto="true" process="@this"
+                                                      allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" multiple="false"
+                                                      invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
+                                                      invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
+                                                      fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
+                                        />
+
+                                        <f:facet name="footer">
+                                            <div align="center">
+                                                <p:commandButton value="Redefinir Campos" action="#{LayoutCrachaController.cancelar()}" ajax="false" immediate="true"/>
+                                                <p:commandButton value="Salvar" action="#{LayoutCrachaController.salvar()}" ajax="false" icon="pi pi-save"/>
+                                                <p:commandButton value="Pré-visualizar" action="#{LayoutCrachaController.handlePreviewLayout()}" ajax="true" process="@form" update="previewImage"
+                                                                 icon="pi pi-eye" oncomplete="PF('dlg').show();"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:panelGrid>
+                                </div>
+                            </h:form>
+                        </p:column>
+
+                        <p:column styleClass="forty-percent">
+                            <h:form>
+                            <p:panelGrid columns="1" style="display: inline-block; float: left;">
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="Visualização"/>
+                                </f:facet>
+
+                                <p:column style="background-color: cornflowerblue">
+                                    <p:graphicImage value="#{LayoutCrachaController.mostrarLayout()}" id="layoutImage" styleClass="formImage"/>
+                                </p:column>
+                            </p:panelGrid>
+                        </h:form>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </ui:define>
+
+            <ui:define name="dialogos">
+                <p:dialog widgetVar="dlg" modal="true" header="Pré-visualização" blockScroll="true" height="500px" width="700px">
+                    <div align="center">
+                            <p:graphicImage id="previewImage"
+                                            value="#{ImageView.previewCracha(LayoutCrachaController.objeto)}"
+                                            cache="false" styleClass="formCropperImage"/>
+                    </div>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</f:view>
+
+</html>

@@ -117,6 +117,22 @@ public class LayoutCracha implements Serializable {
         this.posicaoNome[1] = y;
     }
 
+    public int getPosicaoNomeX() {
+        return this.posicaoNome[0];
+    }
+
+    public void setPosicaoNomeX(int x) {
+        this.posicaoNome[0] = x;
+    }
+
+    public int getPosicaoNomeY() {
+        return this.posicaoNome[1];
+    }
+
+    public void setPosicaoNomeY(int y) {
+        this.posicaoNome[1] = y;
+    }
+
     public int[] getPosicaoAdmissao() {
         return posicaoAdmissao;
     }
@@ -127,6 +143,22 @@ public class LayoutCracha implements Serializable {
 
     public void setPosicaoAdmissao(int x, int y) {
         this.posicaoAdmissao[0] = x;
+        this.posicaoAdmissao[1] = y;
+    }
+
+    public int getPosicaoAdmissaoX() {
+        return this.posicaoAdmissao[0];
+    }
+
+    public void setPosicaoAdmissaoX(int x) {
+        this.posicaoAdmissao[0] = x;
+    }
+
+    public int getPosicaoAdmissaoY() {
+        return this.posicaoAdmissao[1];
+    }
+
+    public void setPosicaoAdmissaoY(int y) {
         this.posicaoAdmissao[1] = y;
     }
 
@@ -143,6 +175,22 @@ public class LayoutCracha implements Serializable {
         this.posicaoCodigo[1] = y;
     }
 
+    public int getPosicaoCodigoX() {
+        return this.posicaoCodigo[0];
+    }
+
+    public void setPosicaoCodigoX(int x) {
+        this.posicaoCodigo[0] = x;
+    }
+
+    public int getPosicaoCodigoY() {
+        return this.posicaoCodigo[1];
+    }
+
+    public void setPosicaoCodigoY(int y) {
+        this.posicaoCodigo[1] = y;
+    }
+
     public int[] getPosicaoApelido() {
         return posicaoApelido;
     }
@@ -153,6 +201,22 @@ public class LayoutCracha implements Serializable {
 
     public void setPosicaoApelido(int x, int y) {
         this.posicaoApelido[0] = x;
+        this.posicaoApelido[1] = y;
+    }
+
+    public int getPosicaoApelidoX() {
+        return this.posicaoApelido[0];
+    }
+
+    public void setPosicaoApelidoX(int x) {
+        this.posicaoApelido[0] = x;
+    }
+
+    public int getPosicaoApelidoY() {
+        return this.posicaoApelido[1];
+    }
+
+    public void setPosicaoApelidoY(int y) {
         this.posicaoApelido[1] = y;
     }
 
@@ -169,6 +233,22 @@ public class LayoutCracha implements Serializable {
         this.posicaoImagem[1] = y;
     }
 
+    public int getPosicaoImagemX() {
+        return this.posicaoImagem[0];
+    }
+
+    public void setPosicaoImagemX(int x) {
+        this.posicaoImagem[0] = x;
+    }
+
+    public int getPosicaoImagemY() {
+        return this.posicaoImagem[1];
+    }
+
+    public void setPosicaoImagemY(int y) {
+        this.posicaoImagem[1] = y;
+    }
+
     public int[] getTamanhoImagem() {
         return tamanhoImagem;
     }
@@ -180,6 +260,22 @@ public class LayoutCracha implements Serializable {
 
     public void setTamanhoImagem(int x, int y) {
         this.tamanhoImagem[0] = x;
+        this.tamanhoImagem[1] = y;
+    }
+
+    public int getTamanhoImagemX() {
+        return this.tamanhoImagem[0];
+    }
+
+    public void setTamanhoImagemX(int x) {
+        this.tamanhoImagem[0] = x;
+    }
+
+    public int getTamanhoImagemY() {
+        return this.tamanhoImagem[1];
+    }
+
+    public void setTamanhoImagemY(int y) {
         this.tamanhoImagem[1] = y;
     }
 

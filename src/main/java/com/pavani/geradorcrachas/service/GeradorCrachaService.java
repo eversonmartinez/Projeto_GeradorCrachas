@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.time.LocalDate;
 
@@ -61,6 +62,13 @@ public class GeradorCrachaService {
                 informacoes.getApelido(),
                 informacoes.getFoto()
         );
+    }
+
+    public byte[] gerarTesteLayout() throws IOException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classLoader.getResourceAsStream("layout-cracha\\no-image.png");
+        byte[] foto = (ConversorBytesService.toByteArrayUsingIS(is));
+        return gerarCracha("Campo nome", LocalDate.now(), 9999L, "Apelido", foto);
     }
 
     public byte[] gerarCracha(String nome, LocalDate admissao, Long codigo, String apelido, byte[] fotoCracha) throws IOException {
