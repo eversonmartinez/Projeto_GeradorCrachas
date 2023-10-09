@@ -12,18 +12,18 @@
 }
 
 .ui-panelgrid.customPanelGrid .ui-grid-responsive .ui-panelgrid-cell {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .customPanelGrid .ui-panelgrid-content {
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .customPanelGrid{
-    width: 80%;
+    width: 100%;
     margin:auto;
-    padding-right: 0;
-    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .formulario{
@@ -33,13 +33,14 @@
 }
 
 .image{
-    float: right;
+    /*float: right;*/
     width: 200px;
     height: 200px;
 }
 
 .sixty-percent{
     width: 60%;
+    max-width: 60%;
 }
 
 .forty-percent{
@@ -62,14 +63,14 @@
 }
 
 .content{
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 90vh;
 }
 
 .bottom{
-    position: relative;
+    position: fixed;
     bottom: 0;
     margin: auto;
     height: 30px;

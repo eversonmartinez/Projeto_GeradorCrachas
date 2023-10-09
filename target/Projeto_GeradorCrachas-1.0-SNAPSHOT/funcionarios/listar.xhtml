@@ -12,11 +12,11 @@
             <ui:define name="pageTitle">Listagem de Funcionários</ui:define>
             <ui:define name="content">
                 <h:form>
-                    <p:messages/>
-                    <p:growl/>
+                    <p:messages showDetail="true"/>
+                    <p:growl showDetail="true"/>
                     <p:commandButton value="Novo" action="#{FuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
                     <div align="center">
-                        <p:panelGrid columns="11">
+                        <p:panelGrid columns="11" class="headerListagem">
                             <p:outputLabel value = "Ordem:"/>
                             <p:selectOneMenu value="#{FuncionarioController.dao.ordem}">
                                 <f:selectItem itemLabel="ID" itemValue="id"/>

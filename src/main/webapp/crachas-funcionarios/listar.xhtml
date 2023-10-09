@@ -16,7 +16,7 @@
                     <p:growl showDetail="true"/>
                     <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
                     <div align="center">
-                        <p:panelGrid columns="11" id="headerListagem">
+                        <p:panelGrid columns="11" class="headerListagem">
                             <p:outputLabel value = "Filtro:"/>
                             <p:selectOneMenu value="#{CrachaFuncionarioController.dao.ordem}">
                                 <f:selectItem itemLabel="ID" itemValue="id"/>

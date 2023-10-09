@@ -11,10 +11,11 @@
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="pageTitle">Edição de Crachás</ui:define>
             <ui:define name="content">
-                <p:panelGrid columns="2" columnClasses="sixty-percent, forty-percent" styleClass="customPanelGrid">
-                    <p:row>
-                        <p:column styleClass="sixty-percent">
-                            <h:form enctype="multipart/form-data">
+<!--                <p:panelGrid columns="2" styleClass="customPanelGrid">-->
+                <div class="customPanelGrid">
+<!--                    <p:row>-->
+<!--                        <p:column styleClass="sixty-percent">-->
+                            <h:form enctype="multipart/form-data" >
                                 <p:growl id="messages" showDetail="true"/>
                                 <p:messages/>
                                 <div align="center">
@@ -63,10 +64,10 @@
                                     </p:panelGrid>
                                 </div>
                             </h:form>
-                        </p:column>
+<!--                        </p:column>-->
 
-                        <p:column styleClass="forty-percent">
-                            <h:form>
+<!--                        <p:column styleClass="forty-percent">-->
+                            <h:form >
                             <p:panelGrid columns="1" style="display: inline-block; float: left">
                                 <f:facet name="header">
                                     <p:outputLabel value="Crachá"/>
@@ -80,10 +81,10 @@
                                 </f:facet>
                             </p:panelGrid>
                         </h:form>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
-
+<!--                        </p:column>-->
+<!--                    </p:row>-->
+<!--                </p:panelGrid>-->
+                </div>
                 <h:outputScript library="js" name="crachas-funcionarios.js"></h:outputScript>
             </ui:define>>
 

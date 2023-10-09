@@ -10,9 +10,10 @@
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="pageTitle">Edição de layouts</ui:define>
             <ui:define name="content">
-                <p:panelGrid columns="2" columnClasses="sixty-percent, forty-percent" styleClass="customPanelGrid">
-                    <p:row>
-                        <p:column styleClass="sixty-percent">
+<!--                <p:panelGrid columns="2" columnClasses="sixty-percent, forty-percent" styleClass="customPanelGrid">-->
+<!--                    <p:row>-->
+<!--                        <p:column styleClass="sixty-percent">-->
+                <div class="customPanelGrid">
                             <h:form enctype="multipart/form-data">
 
                             <p:growl/>
@@ -108,9 +109,9 @@
                                     </p:panelGrid>
                                 </div>
                             </h:form>
-                        </p:column>
+<!--                        </p:column>-->
 
-                        <p:column styleClass="forty-percent">
+<!--                        <p:column styleClass="forty-percent">-->
                             <h:form>
                             <p:panelGrid columns="1" style="display: inline-block; float: left;">
 
@@ -123,9 +124,11 @@
                                 </p:column>
                             </p:panelGrid>
                         </h:form>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
+
+<!--                        </p:column>-->
+            </div>
+<!--                    </p:row>-->
+<!--                </p:panelGrid>-->
             </ui:define>
 
             <ui:define name="dialogos">

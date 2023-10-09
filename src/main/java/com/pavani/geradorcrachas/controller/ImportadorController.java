@@ -40,9 +40,10 @@ public class ImportadorController {
 
                 int erroDao = 0;
                 for(Funcionario f : funcionarios){
-                    if(novoFuncionario(f))
-                        if(!dao.persist(f))
+                    if(novoFuncionario(f)) {
+                        if (!dao.persist(f))
                             erroDao++;
+                    }
                 }
 
                 if(erroDao == 0)

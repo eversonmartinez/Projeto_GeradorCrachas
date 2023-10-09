@@ -10,7 +10,8 @@
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="pageTitle">Importador de Funcionários</ui:define>
             <ui:define name="content">
-                <p:column styleClass="sixty-percent">
+<!--                <p:column styleClass="sixty-percent">-->
+                <div class="customPanelGrid">
                     <h:form enctype="multipart/form-data">
 
                         <p:growl/>
@@ -40,7 +41,8 @@
                             </p:panelGrid>
                         </div>
                     </h:form>
-                </p:column>
+                </div>
+<!--                </p:column>-->
             </ui:define>
         </ui:composition>
     </h:body>

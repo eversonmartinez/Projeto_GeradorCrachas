@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public abstract class Dao<T> implements Serializable {
-    private String mensagem = "";
+    protected String mensagem = "";
     protected EntityManager em;
     protected Class classePersistente;
     protected String filtro="";

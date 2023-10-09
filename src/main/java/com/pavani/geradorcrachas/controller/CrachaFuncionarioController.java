@@ -93,6 +93,7 @@ public class CrachaFuncionarioController implements Serializable {
 
     public String novo(){
         objeto = new CrachaFuncionario();
+        layout = new LayoutCrachaDao().getDefault();
         fotoVazia();
         return "formulario?faces-redirect=true";
     }
@@ -120,6 +121,7 @@ public class CrachaFuncionarioController implements Serializable {
             objeto = null;
         }
         objeto = dao.findById(id);
+        layout = new LayoutCrachaDao().getDefault();
         return("/crachas-funcionarios/formulario?faces-redirect=true");
     }
 
