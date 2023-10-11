@@ -1,7 +1,9 @@
 package com.pavani.geradorcrachas.service;
 
 import com.pavani.geradorcrachas.dao.CrachaDao;
+import com.pavani.geradorcrachas.dao.FuncionarioDao;
 import com.pavani.geradorcrachas.dao.LayoutCrachaDao;
+import com.pavani.geradorcrachas.masks.FuncionarioMask;
 import com.pavani.geradorcrachas.model.entities.Cracha;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.model.entities.Funcionario;
@@ -22,7 +24,10 @@ import java.util.List;
 public class TestService {
 
     public static void main(String[] args) {
-        Funcionario funcionario = new Funcionario("Everson Miranda Martinez", LocalDate.now(), 123L);
-        System.out.println(funcionario.getCracha().getNomeVisivel());
+        FuncionarioDao dao = new FuncionarioDao();
+        List<FuncionarioMask> lista = dao.getListaObjetosMasked();
+//        System.out.print(lista);
+        for(FuncionarioMask f: lista)
+            System.out.println(dao.findById(f.getId()).getNome());
     }
 }
