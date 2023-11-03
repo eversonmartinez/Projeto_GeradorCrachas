@@ -26,8 +26,11 @@ public class TestService {
     public static void main(String[] args) {
         FuncionarioDao dao = new FuncionarioDao();
         List<FuncionarioMask> lista = dao.getListaObjetosMasked();
-//        System.out.print(lista);
-        for(FuncionarioMask f: lista)
+        for(FuncionarioMask f: lista) {
+            System.out.println(dao.findById(f.getId()).getId());
             System.out.println(dao.findById(f.getId()).getNome());
+            System.out.println(dao.findById(f.getId()).getCodigo());
+            System.out.println(dao.findById(f.getId()).getAdmissao());
+        }
     }
 }

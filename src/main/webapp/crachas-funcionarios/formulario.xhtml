@@ -46,8 +46,8 @@
 
                                         <p:outputLabel value="Foto" for="uploadPhoto"/>
                                         <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
-                                                      auto="true" allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="5000000" multiple="false"
-                                                      invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 5MB"
+                                                      auto="true" allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="10000000" multiple="false"
+                                                      invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 10MB"
                                                       invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
                                                       fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
                                                       process="@this" update="messages formCropper"
