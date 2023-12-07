@@ -22,6 +22,7 @@ public class FuncionarioController implements Serializable {
 
     public FuncionarioController(){
         dao=new FuncionarioDao();
+        dao.setOrdem("nome");
         objeto = new Funcionario();
     }
 
@@ -35,6 +36,7 @@ public class FuncionarioController implements Serializable {
     }
 
     public String salvar(){
+        objeto.getCracha().atualizarInformacoes();
         boolean gravou;
         gravou = (objeto.getId() == null ? dao.persist(objeto) : dao.merge(objeto));
         if(gravou){

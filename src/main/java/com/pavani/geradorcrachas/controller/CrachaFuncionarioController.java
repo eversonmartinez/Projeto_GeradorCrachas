@@ -137,7 +137,7 @@ public class CrachaFuncionarioController implements Serializable {
 
     public String cancelar(){
         limparController();
-        return "/funcionarios/listar?faces-redirect=true";
+        return "/crachas-funcionarios/listar?faces-redirect=true";
     }
 
     public UploadedFile getFile() {

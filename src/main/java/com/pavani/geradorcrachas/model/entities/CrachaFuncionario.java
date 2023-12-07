@@ -15,7 +15,7 @@ public class CrachaFuncionario implements Serializable {
     private String nomeVisivel;
     @Column(name = "apelido", nullable = true, length = 11)
     private String apelido;
-
+    @Column (name="admissaoFuncionario", nullable = true)
     private LocalDate admissaoFuncionario;
 
     @Column(name="codigoFuncionario", length = 8)
@@ -156,5 +156,13 @@ public class CrachaFuncionario implements Serializable {
 
     public void setCracha(Cracha cracha) {
         this.cracha = cracha;
+    }
+
+    public void atualizarInformacoes(){
+        this.admissaoFuncionario = funcionario.getAdmissao();
+        this.codigoFuncionario = funcionario.getCodigo();
+        this.nomeVisivel = criarNomeVisivel(funcionario.getNome());
+        if(funcionario.getNome() != null)
+            this.apelido = funcionario.getNome().split(" ")[0];
     }
 }

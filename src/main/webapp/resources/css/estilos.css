@@ -67,18 +67,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
-.bottom{
-    position: fixed;
+.footer{
+    position: absolute;
     bottom: 0;
-    margin: auto;
-    height: 30px;
-    padding: 8px 0;
-    text-align: center;
-    background-color: rgba(0,0,0,0.63);
-    border: black 1px;
-    color: #c7c7c7;
+    right: 0;
+    height: 15px;
 }
 
 .headerListagem{

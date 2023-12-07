@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Funcionario implements Serializable {
@@ -74,5 +75,18 @@ public class Funcionario implements Serializable {
 
     public void setCracha(CrachaFuncionario cracha) {
         this.cracha = cracha;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Funcionario that = (Funcionario) o;
+        return Objects.equals(nome, that.nome) && Objects.equals(codigo, that.codigo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, codigo);
     }
 }

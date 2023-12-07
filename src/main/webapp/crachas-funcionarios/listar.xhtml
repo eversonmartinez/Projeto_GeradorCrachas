@@ -14,13 +14,16 @@
                 <h:form>
                     <p:messages showDetail="true"/>
                     <p:growl showDetail="true"/>
-                    <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
+                    <div align="center">
+                        <h1>Crachás</h1>
+                        <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
+                    </div>
                     <div align="center">
                         <p:panelGrid columns="11" class="headerListagem">
                             <p:outputLabel value = "Filtro:"/>
                             <p:selectOneMenu value="#{CrachaFuncionarioController.dao.ordem}">
-                                <f:selectItem itemLabel="ID" itemValue="id"/>
                                 <f:selectItem itemLabel="Nome" itemValue="nomeVisivel"/>
+                                <f:selectItem itemLabel="ID" itemValue="id"/>
                                 <f:selectItem itemLabel="Código" itemValue="codigoFuncionario"/>
                                 <p:ajax update="listagem"/>
                             </p:selectOneMenu>

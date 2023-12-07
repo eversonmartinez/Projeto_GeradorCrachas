@@ -62,7 +62,11 @@ public abstract class Dao<T> implements Serializable {
 
         totalObjetos = em.createQuery(jpql).getResultList().size();
 
+        if(posicaoAtual < 0)
+            posicaoAtual = 0;
+
         return em.createQuery(jpql).setFirstResult(posicaoAtual).setMaxResults(maximoObjetos).getResultList();
+
     }
     public void primeiraPagina(){
         posicaoAtual = 0;
