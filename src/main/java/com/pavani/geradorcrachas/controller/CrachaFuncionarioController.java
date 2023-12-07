@@ -38,6 +38,7 @@ public class CrachaFuncionarioController implements Serializable {
     private transient CroppedImage backupCroppedFile;
     private transient byte[] fotoFuncionarioRecortada;
     private boolean cropperAtivo = false;
+    private boolean advindoOutraTela = false;
 
     private StreamedContent previewCropper;
 
@@ -116,6 +117,11 @@ public class CrachaFuncionarioController implements Serializable {
         }
     }
 
+    public String editar(Long id, boolean bool){
+        advindoOutraTela = true;
+        return editar(id);
+    }
+
     public String editar(Long id){
         if(objeto!=null){
             objeto = null;
@@ -136,6 +142,11 @@ public class CrachaFuncionarioController implements Serializable {
     }
 
     public String cancelar(){
+        if(advindoOutraTela = true) {
+            limparController();
+            return "/funcionarios/listar?faces-redirect=true";
+        }
+
         limparController();
         return "/crachas-funcionarios/listar?faces-redirect=true";
     }
@@ -288,5 +299,6 @@ public class CrachaFuncionarioController implements Serializable {
         fotoFuncionarioRecortada = null;
         cropperAtivo = false;
         this.previewCropper = null;
+        advindoOutraTela = false;
     }
 }

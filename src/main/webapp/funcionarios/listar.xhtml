@@ -17,33 +17,31 @@
                         <p:messages showDetail="true"/>
                         <p:growl showDetail="true"/>
                         <div align="center">
-                            <h1>Crachás</h1>
+                            <h1 class="pageDefinition">Funcionários</h1>
                             <p:commandButton value="Novo" action="#{FuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
                         </div>
+
                         <div align="center">
-                            <p:panelGrid columns="11" class="headerListagem">
+                            <p:panelGrid columns="8" class="headerListagem">
                                 <p:outputLabel value = "Ordem:"/>
-                                <p:selectOneMenu value="#{FuncionarioController.dao.ordem}">
+                                <p:selectOneMenu value="#{FuncionarioController.dao.ordem}" immediate="true" >
                                     <f:selectItem itemLabel="Nome" itemValue="nome"/>
                                     <f:selectItem itemLabel="ID" itemValue="id"/>
                                     <f:selectItem itemLabel="Código" itemValue="codigo"/>
-                                    <p:ajax update="listagem"/>
+                                    <f:selectItem itemLabel="Admissão" itemValue="admissao"/>
+                                    <p:ajax event="change" update="listagem"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Pesquisa:"/>
                                 <p:inputText size="20" value="#{FuncionarioController.dao.filtro}"></p:inputText>
+                                <p:selectOneMenu value="#{FuncionarioController.dao.tipoPesquisa}">
+                                    <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                                    <f:selectItem itemLabel="ID" itemValue="id"/>
+                                    <f:selectItem itemLabel="Código" itemValue="codigo"/>
+                                </p:selectOneMenu>
                                 <p:commandButton id="pesquisar" value="Pesquisar" icon="pi pi-search" update="listagem"/>
                                 <p:outputLabel value="Máximo de objetos"/>
                                 <p:inputNumber value="#{FuncionarioController.dao.maximoObjetos}" decimalPlaces="0" decimalSeparator=""
-                                               thousandSeparator=""/>
-                                <p:commandButton value="Primeira" icon="pi pi-fast-backward"
-                                                 actionListener="#{FuncionarioController.dao.primeiraPagina()}"
-                                                 update="listagem"/>
-                                <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{FuncionarioController.dao.anteriorPagina()}"
-                                                 update="listagem"/>
-                                <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{FuncionarioController.dao.proximaPagina()}"
-                                                 update="listagem"/>
-                                <p:commandButton value="Última" icon="pi pi-fast-forward" actionListener="#{FuncionarioController.dao.ultimaPagina()}"
-                                                 update="listagem"/>
+                                               thousandSeparator="" size="2"/>
                             </p:panelGrid>
                         </div>
 
@@ -67,12 +65,25 @@
                                 <div align="center">
                                     <p:commandButton action="#{FuncionarioController.editar(objeto.id)}" ajax="false"
                                                      icon="pi pi-pencil" title="Editar"/>
+                                    <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id, true)}" ajax="false"
+                                                     icon="pi pi-id-card" title="Ver crachá"/>
                                     <p:commandButton action="#{FuncionarioController.remover(objeto.id)}" ajax="false"
                                                      icon="pi pi-trash" title="Remover" update="@form"
                                                      onclick="if (!confirm('Confirma a exclusão?')) return false"/>
                                 </div>
                             </p:column>
                         </p:dataTable>
+                        <p:panelGrid columns="4" class="headerListagem" >
+                            <p:commandButton value="Primeira" icon="pi pi-fast-backward"
+                                             actionListener="#{FuncionarioController.dao.primeiraPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{FuncionarioController.dao.anteriorPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{FuncionarioController.dao.proximaPagina()}"
+                                             update="listagem"/>
+                            <p:commandButton value="Última" icon="pi pi-fast-forward" actionListener="#{FuncionarioController.dao.ultimaPagina()}"
+                                             update="listagem"/>
+                        </p:panelGrid>
                     </h:form>
                 </div>
             </ui:define>>

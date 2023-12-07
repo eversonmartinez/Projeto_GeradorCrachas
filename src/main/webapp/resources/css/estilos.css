@@ -58,7 +58,6 @@
 }
 
 .top{
-    margin: 5px;
     text-align: center;
 }
 
@@ -67,7 +66,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
 .footer{
@@ -80,7 +78,6 @@
 .headerListagem{
     margin: 30px auto;
     padding: 20px;
-    background-color: yellow;
 }
 
 .dialogButton{
@@ -109,3 +106,19 @@
     width: 50px;
     text-align: center;
 }
+
+.pageDefinition{
+    text-decoration: underline;
+    font-family: "Verdana";
+    letter-spacing: 1.5px;
+    font-size: 2.2rem;
+    color: lightslategrey;
+    background-color: azure;
+    padding: 10px 0;
+    top: 50%;
+}
+
+.conteudoFormulario{
+    margin-top: 25px;
+}
+

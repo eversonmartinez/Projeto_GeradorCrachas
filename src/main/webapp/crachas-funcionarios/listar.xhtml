@@ -15,35 +15,31 @@
                     <p:messages showDetail="true"/>
                     <p:growl showDetail="true"/>
                     <div align="center">
-                        <h1>Crachás</h1>
+                        <h1 class="pageDefinition">Crachás</h1>
                         <p:commandButton value="Novo" action="#{CrachaFuncionarioController.novo()}" ajax = "false" icon = "pi pi-plus"/>
                     </div>
                     <div align="center">
-                        <p:panelGrid columns="11" class="headerListagem">
-                            <p:outputLabel value = "Filtro:"/>
+                        <p:panelGrid columns="8" class="headerListagem">
+                            <p:outputLabel value = "Ordem:"/>
                             <p:selectOneMenu value="#{CrachaFuncionarioController.dao.ordem}">
                                 <f:selectItem itemLabel="Nome" itemValue="nomeVisivel"/>
                                 <f:selectItem itemLabel="ID" itemValue="id"/>
                                 <f:selectItem itemLabel="Código" itemValue="codigoFuncionario"/>
-                                <p:ajax update="listagem"/>
+                                <f:selectItem itemLabel="Admissão" itemValue="admissao"/>
+                                <p:ajax event="change" update="listagem"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Pesquisa:"/>
                             <p:inputText size="20" value="#{CrachaFuncionarioController.dao.filtro}">
-
                             </p:inputText>
+                                <p:selectOneMenu value="#{CrachaFuncionarioController.dao.tipoPesquisa}">
+                                    <f:selectItem itemLabel="Nome" itemValue="nomeVisivel"/>
+                                    <f:selectItem itemLabel="ID" itemValue="id"/>
+                                    <f:selectItem itemLabel="Código" itemValue="codigoFuncionario"/>
+                                </p:selectOneMenu>
                             <p:commandButton value="Pesquisar" icon="pi pi-search" update="listagem"/>
                             <p:outputLabel value="Máximo de objetos"/>
                             <p:inputNumber value="#{CrachaFuncionarioController.dao.maximoObjetos}" decimalPlaces="0" decimalSeparator=""
-                                           thousandSeparator=""/>
-                            <p:commandButton value="Primeira" icon="pi pi-fast-backward"
-                                             actionListener="#{CrachaFuncionarioController.dao.primeiraPagina()}"
-                                             update="listagem"/>
-                            <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{CrachaFuncionarioController.dao.anteriorPagina()}"
-                                             update="listagem"/>
-                            <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{CrachaFuncionarioController.dao.proximaPagina()}"
-                                             update="listagem"/>
-                            <p:commandButton value="Última" icon="pi pi-fast-forward" actionListener="#{CrachaFuncionarioController.dao.ultimaPagina()}"
-                                             update="listagem"/>
+                                           thousandSeparator="" size="2"/>
                         </p:panelGrid>
                     </div>
 
@@ -73,6 +69,17 @@
                             </div>
                         </p:column>
                     </p:dataTable>
+                    <p:panelGrid columns="4" class="headerListagem" >
+                        <p:commandButton value="Primeira" icon="pi pi-fast-backward"
+                                         actionListener="#{CrachaFuncionarioController.dao.primeiraPagina()}"
+                                         update="listagem"/>
+                        <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{CrachaFuncionarioController.dao.anteriorPagina()}"
+                                         update="listagem"/>
+                        <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{CrachaFuncionarioController.dao.proximaPagina()}"
+                                         update="listagem"/>
+                        <p:commandButton value="Última" icon="pi pi-fast-forward" actionListener="#{CrachaFuncionarioController.dao.ultimaPagina()}"
+                                         update="listagem"/>
+                    </p:panelGrid>
                 </h:form>
             </ui:define>
 

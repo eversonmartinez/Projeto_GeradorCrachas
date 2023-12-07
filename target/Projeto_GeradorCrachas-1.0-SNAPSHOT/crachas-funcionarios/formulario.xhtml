@@ -11,79 +11,79 @@
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="pageTitle">Edição de Crachás</ui:define>
             <ui:define name="content">
-<!--                <p:panelGrid columns="2" styleClass="customPanelGrid">-->
-                <div class="customPanelGrid">
-<!--                    <p:row>-->
-<!--                        <p:column styleClass="sixty-percent">-->
-                            <h:form enctype="multipart/form-data" >
-                                <p:growl id="messages" showDetail="true"/>
-                                <p:messages/>
-                                <div align="center">
-
-                                    <p:panelGrid columns="2" style="display: inline-block; float: left">
-
-                                        <f:facet name="header">
-                                            <p:outputLabel value="Dados do Funcionário"/>
-                                        </f:facet>
-
-                                        <p:outputLabel value="ID"/>
-                                        <p:inputText value="#{CrachaFuncionarioController.objeto.id}" size="5" readonly="true"/>
-
-                                        <p:outputLabel value="Nome" for="txtNome"/>
-                                        <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="20" maxlength="20"
-                                                     placeholder="Obrigatório"/>
-
-                                        <p:outputLabel value="Admissão" for="dtpAdmissao"/>
-                                        <p:datePicker value="#{CrachaFuncionarioController.objeto.admissaoFuncionario}" id="dtpAdmissao"/>
-
-                                        <p:outputLabel value="Código Funcionário" for="txtCodigo"/>
-                                        <p:inputNumber value="#{CrachaFuncionarioController.objeto.codigoFuncionario}" id="txtCodigo"
-                                                       minValue="0" maxValue="99999999" decimalPlaces="0" thousandSeparator="" />
-
-                                        <p:outputLabel value="Apelido" for="txtApelido"/>
-                                        <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="10" maxlength="10"
-                                                     placeholder="Obrigatório"/>
-
-                                        <p:outputLabel value="Foto" for="uploadPhoto"/>
-                                        <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
-                                                      auto="true" allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="10000000" multiple="false"
-                                                      invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 10MB"
-                                                      invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
-                                                      fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
-                                                      process="@this" update="messages formCropper"
-                                        />
-
-                                        <f:facet name="footer">
-                                            <div align="center">
-                                                <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
-                                                <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
-                                                <p:commandButton value="Pré-visualizar" action="#{CrachaFuncionarioController.handlePreviewCracha()}" process="@form" update="previewImage, formCropper"
-                                                                 icon="pi pi-eye" oncomplete="PF('dlg').show();"/>
-                                            </div>
-                                        </f:facet>
-                                    </p:panelGrid>
-                                </div>
-                            </h:form>
-<!--                        </p:column>-->
-
-<!--                        <p:column styleClass="forty-percent">-->
-                            <h:form >
-                            <p:panelGrid columns="1" style="display: inline-block; float: left">
-                                <f:facet name="header">
-                                    <p:outputLabel value="Crachá"/>
-                                </f:facet>
-
-                                <p:graphicImage value="#{CrachaFuncionarioController.mostrarCracha()}" id="crachaImage" styleClass="formImage"/>
-                                <f:facet name="footer">
+                <div class="conteudoFormulario">
+    <!--                <p:panelGrid columns="2" styleClass="customPanelGrid">-->
+                    <div class="customPanelGrid">
+    <!--                    <p:row>-->
+    <!--                        <p:column styleClass="sixty-percent">-->
+                                <h:form enctype="multipart/form-data" >
+                                    <p:growl id="messages" showDetail="true"/>
+                                    <p:messages/>
                                     <div align="center">
-                                        <h:outputLink value="#{CrachaFuncionarioController.downloadCracha()}}" ajax="false" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only downloadButton"><i class="pi pi-arrow-circle-down"/> Baixar</h:outputLink>
+
+                                        <p:panelGrid columns="2" style="display: inline-block; float: left">
+
+                                            <f:facet name="header">
+                                                <p:outputLabel value="Dados do Funcionário"/>
+                                            </f:facet>
+
+                                            <p:outputLabel value="ID"/>
+                                            <p:inputText value="#{CrachaFuncionarioController.objeto.id}" size="5" readonly="true"/>
+
+                                            <p:outputLabel value="Nome" for="txtNome"/>
+                                            <p:inputText value="#{CrachaFuncionarioController.objeto.nomeVisivel}"  id="txtNome" size="20" maxlength="20"
+                                                         placeholder="Obrigatório"/>
+
+                                            <p:outputLabel value="Admissão" for="dtpAdmissao"/>
+                                            <p:datePicker value="#{CrachaFuncionarioController.objeto.admissaoFuncionario}" id="dtpAdmissao"/>
+
+                                            <p:outputLabel value="Código Funcionário" for="txtCodigo"/>
+                                            <p:inputNumber value="#{CrachaFuncionarioController.objeto.codigoFuncionario}" id="txtCodigo"
+                                                           minValue="0" maxValue="99999999" decimalPlaces="0" thousandSeparator="" />
+
+                                            <p:outputLabel value="Apelido" for="txtApelido"/>
+                                            <p:inputText value="#{CrachaFuncionarioController.objeto.apelido}"  id="txtApelido" size="10" maxlength="10"
+                                                         placeholder="Obrigatório"/>
+
+                                            <p:outputLabel value="Foto" for="uploadPhoto"/>
+                                            <p:fileUpload listener="#{CrachaFuncionarioController.uploadTemporario}" id="uploadPhoto"
+                                                          auto="true" allowTypes="/(\.|\/)(png|jpg|jpeg)$/" sizeLimit="10000000" multiple="false"
+                                                          invalidSizeMessage="O tamanho máximo para upload de um arquivo é de 10MB"
+                                                          invalidFileMessage="São aceitos apenas arquivos .jpeg / .jpg / .png"
+                                                          fileLimitMessage="Apenas um arquivo pode ser enviado por vez"
+                                                          process="@this" update="messages formCropper"
+                                            />
+
+                                            <f:facet name="footer">
+                                                <div align="center">
+                                                    <p:commandButton value="Cancelar" action="#{CrachaFuncionarioController.cancelar()}" ajax="false" immediate="true"/>
+                                                    <p:commandButton value="Salvar" action="#{CrachaFuncionarioController.salvar()}" ajax="false" icon="pi pi-save"/>
+                                                    <p:commandButton value="Pré-visualizar" action="#{CrachaFuncionarioController.handlePreviewCracha()}" process="@form" update="previewImage, formCropper"
+                                                                     icon="pi pi-eye" oncomplete="PF('dlg').show();"/>
+                                                </div>
+                                            </f:facet>
+                                        </p:panelGrid>
                                     </div>
-                                </f:facet>
-                            </p:panelGrid>
-                        </h:form>
-<!--                        </p:column>-->
-<!--                    </p:row>-->
-<!--                </p:panelGrid>-->
+                                </h:form>
+    <!--                        </p:column>-->
+
+    <!--                        <p:column styleClass="forty-percent">-->
+                                <h:form >
+                                <p:panelGrid columns="1" style="display: inline-block; float: left">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Crachá"/>
+                                    </f:facet>
+
+                                    <p:graphicImage value="#{CrachaFuncionarioController.mostrarCracha()}" id="crachaImage" styleClass="formImage"/>
+                                    <f:facet name="footer">
+                                        <div align="center">
+                                            <h:outputLink value="#{CrachaFuncionarioController.downloadCracha()}}" ajax="false" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only downloadButton"><i class="pi pi-arrow-circle-down"/> Baixar</h:outputLink>
+                                        </div>
+                                    </f:facet>
+                                </p:panelGrid>
+                            </h:form>
+
+                    </div>
                 </div>
                 <h:outputScript library="js" name="crachas-funcionarios.js"></h:outputScript>
             </ui:define>>

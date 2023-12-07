@@ -12,6 +12,7 @@ public abstract class Dao<T> implements Serializable {
     protected EntityManager em;
     protected Class classePersistente;
     protected String filtro="";
+    protected String tipoPesquisa="id";
     protected String ordem="id";
     protected Integer maximoObjetos=8;
     protected Integer posicaoAtual=0;
@@ -40,20 +41,20 @@ public abstract class Dao<T> implements Serializable {
         filtro = filtro.replaceAll("[';-]", "");    //método de evitar sql injections
 
         if(filtro.length()>0){
-            if(ordem.equals("id")){
+            if(tipoPesquisa.equals("id")){
                 try {
                     Long.parseLong(filtro);
-                    where += " where " + ordem + " = '" + filtro + "' ";
+                    where += " where " + tipoPesquisa + " = '" + filtro + "' ";
                 }catch(Exception e){}
             }
-            else if(ordem.startsWith("codigo")){
+            else if(tipoPesquisa.startsWith("codigo")){
                 try {
                     Long.parseLong(filtro);
-                    where += " where " + ordem + " = '" + filtro + "' ";
+                    where += " where " + tipoPesquisa + " = '" + filtro + "' ";
                 }catch(Exception e){}
             }
             else{
-                where += " where upper(" + ordem + ") like '%" + filtro.toUpperCase() + "%'";
+                where += " where upper(" + tipoPesquisa + ") like '%" + filtro.toUpperCase() + "%'";
             }
 
             jpql+=where;
@@ -175,6 +176,14 @@ public abstract class Dao<T> implements Serializable {
 
     public void setFiltro(String filtro) {
         this.filtro = filtro;
+    }
+
+    public String getTipoPesquisa() {
+        return tipoPesquisa;
+    }
+
+    public void setTipoPesquisa(String tipoPesquisa) {
+        this.tipoPesquisa = tipoPesquisa;
     }
 
     public String getOrdem() {
