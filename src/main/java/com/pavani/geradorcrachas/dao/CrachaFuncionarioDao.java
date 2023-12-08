@@ -1,5 +1,7 @@
 package com.pavani.geradorcrachas.dao;
 
+import com.pavani.geradorcrachas.masks.CrachaFuncionarioMask;
+import com.pavani.geradorcrachas.masks.FuncionarioMask;
 import com.pavani.geradorcrachas.model.entities.Cracha;
 import com.pavani.geradorcrachas.model.entities.CrachaFuncionario;
 import com.pavani.geradorcrachas.util.EntityManagerUtil;
@@ -8,6 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CrachaFuncionarioDao extends Dao<CrachaFuncionario>{
     public CrachaFuncionarioDao(){
@@ -31,4 +34,8 @@ public class CrachaFuncionarioDao extends Dao<CrachaFuncionario>{
 //        //em.getTransaction().commit();
 //        return listaRetorno;
 //    }
+
+    public List<CrachaFuncionarioMask> getListaObjetosMasked(){
+        return this.getListaObjetos().stream().map(cracha -> new CrachaFuncionarioMask(cracha)).collect(Collectors.toList());
+    }
 }

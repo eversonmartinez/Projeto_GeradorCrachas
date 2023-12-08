@@ -76,8 +76,51 @@
 }
 
 .headerListagem{
-    margin: 30px auto;
+    margin: 20px auto 10px;
     padding: 20px;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(1){
+    border-right: none;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(2){
+    border-left: none;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(3){
+    border-right: none;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(4){
+    border-left: none;
+    border-right: none;
+}
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(5){
+    border-left: none;
+    border-right: none;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(6){
+    border-left: none;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(7){
+    border-right: none;
+}
+
+.headerListagem.ui-panelgrid .ui-panelgrid-cell:nth-child(8){
+    border-left: none;
+}
+
+.navegacaoListagem{
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.navegacaoListagem.ui-panelgrid>*>tr,
+.navegacaoListagem.ui-panelgrid .ui-panelgrid-cell{
+    border: none;
 }
 
 .dialogButton{
@@ -109,7 +152,7 @@
 
 .pageDefinition{
     text-decoration: underline;
-    font-family: "Verdana";
+    font-family: "Verdana, Helvetica, sans-serif";
     letter-spacing: 1.5px;
     font-size: 2.2rem;
     color: lightslategrey;
@@ -121,4 +164,20 @@
 .conteudoFormulario{
     margin-top: 25px;
 }
+
+.helpSquare{
+    position: fixed;
+    right:0;
+    top:35%;
+}
+
+.helpSquare .helpButton{
+    font-weight: bold;
+    font-size: 32px !important;
+    width: 48px;
+    height: 50px;
+    text-align: center;
+    font-family: "Agency FB";
+}
+
 

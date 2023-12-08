@@ -114,7 +114,7 @@
 }
 
 .navegacaoListagem{
-    margin: 0px auto;
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -152,7 +152,7 @@
 
 .pageDefinition{
     text-decoration: underline;
-    font-family: "Verdana";
+    font-family: "Verdana, Helvetica, sans-serif";
     letter-spacing: 1.5px;
     font-size: 2.2rem;
     color: lightslategrey;
@@ -164,4 +164,20 @@
 .conteudoFormulario{
     margin-top: 25px;
 }
+
+.helpSquare{
+    position: fixed;
+    right:0;
+    top:35%;
+}
+
+.helpSquare .helpButton{
+    font-weight: bold;
+    font-size: 32px !important;
+    width: 48px;
+    height: 50px;
+    text-align: center;
+    font-family: "Agency FB";
+}
+
 

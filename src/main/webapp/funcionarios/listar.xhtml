@@ -32,7 +32,7 @@
                                     <p:ajax event="change" update="listagem"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Pesquisa:"/>
-                                <p:inputText size="20" value="#{FuncionarioController.dao.filtro}"></p:inputText>
+                                <p:inputText size="20" value="#{FuncionarioController.dao.filtro}"/>
                                 <p:selectOneMenu value="#{FuncionarioController.dao.tipoPesquisa}">
                                     <f:selectItem itemLabel="Nome" itemValue="nome"/>
                                     <f:selectItem itemLabel="ID" itemValue="id"/>
