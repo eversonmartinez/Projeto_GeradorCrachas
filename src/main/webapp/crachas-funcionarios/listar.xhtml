@@ -25,7 +25,7 @@
                                 <f:selectItem itemLabel="Nome" itemValue="nomeVisivel"/>
                                 <f:selectItem itemLabel="ID" itemValue="id"/>
                                 <f:selectItem itemLabel="Código" itemValue="codigoFuncionario"/>
-                                <f:selectItem itemLabel="Admissão" itemValue="admissao"/>
+                                <f:selectItem itemLabel="Apelido" itemValue="apelido"/>
                                 <p:ajax event="change" update="listagem"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Pesquisa:"/>
@@ -35,9 +35,10 @@
                                     <f:selectItem itemLabel="Nome" itemValue="nomeVisivel"/>
                                     <f:selectItem itemLabel="ID" itemValue="id"/>
                                     <f:selectItem itemLabel="Código" itemValue="codigoFuncionario"/>
+                                    <f:selectItem itemLabel="Apelido" itemValue="apelido"/>
                                 </p:selectOneMenu>
                             <p:commandButton value="Pesquisar" icon="pi pi-search" update="listagem"/>
-                            <p:outputLabel value="Máximo de objetos"/>
+                            <p:outputLabel value="Máximo de objetos:"/>
                             <p:inputNumber value="#{CrachaFuncionarioController.dao.maximoObjetos}" decimalPlaces="0" decimalSeparator=""
                                            thousandSeparator="" size="2"/>
                         </p:panelGrid>
@@ -47,32 +48,30 @@
                         <f:facet name="footer">
                             <p:outputLabel value="#{CrachaFuncionarioController.dao.mensagemNavegaco}"/>
                         </f:facet>
-                        <p:column headerText="ID">
+                        <p:column headerText="ID" style="text-align: center" width="50">
                             <p:outputLabel value="#{objeto.id}"/>
                         </p:column>
-                        <p:column headerText="Nome">
+                        <p:column headerText="Nome" style="text-align: center" width="450">
                             <p:outputLabel value="#{objeto.nomeVisivel}"/>
                         </p:column>
-                        <p:column headerText="Apelido">
+                        <p:column headerText="Apelido" style="text-align: center">
                             <p:outputLabel value="#{objeto.apelido}"/>
                         </p:column>
-                        <p:column headerText="Código">
+                        <p:column headerText="Código" style="text-align: center">
                             <p:outputLabel value="#{objeto.codigoFuncionario}"/>
                         </p:column>
-                        <p:column headerText="Ações">
-                            <div align="center">
-                                <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id)}" ajax="false"
-                                                 icon="pi pi-pencil" title="Editar"/>
-                                <p:commandButton action="#{CrachaFuncionarioController.remover(objeto.id)}" ajax="false"
-                                                 icon="pi pi-trash" title="Remover" update="@form"
-                                                 onclick="if (!confirm('Confirma a exclusão?')) return false"/>
-                            </div>
+                        <p:column headerText="Ações" style="text-align: center" width="200">
+                            <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id)}" ajax="false"
+                                             icon="pi pi-pencil" title="Editar"/>
+                            <p:commandButton action="#{CrachaFuncionarioController.remover(objeto.id)}" ajax="false"
+                                             icon="pi pi-trash" title="Remover" update="@form"
+                                             onclick="if (!confirm('Confirma a exclusão?')) return false"/>
                         </p:column>
                     </p:dataTable>
-                    <p:panelGrid columns="4" class="headerListagem" >
+                    <p:panelGrid columns="4" class="navegacaoListagem" >
                         <p:commandButton value="Primeira" icon="pi pi-fast-backward"
                                          actionListener="#{CrachaFuncionarioController.dao.primeiraPagina()}"
-                                         update="listagem"/>
+                                         update="listagem" style="border: none;"/>
                         <p:commandButton value="Anterior" icon="pi pi-step-backward" actionListener="#{CrachaFuncionarioController.dao.anteriorPagina()}"
                                          update="listagem"/>
                         <p:commandButton value="Próxima" icon="pi pi-step-forward" actionListener="#{CrachaFuncionarioController.dao.proximaPagina()}"

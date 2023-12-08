@@ -49,31 +49,29 @@
                             <f:facet name="footer">
                                 <p:outputLabel value="#{FuncionarioController.dao.mensagemNavegaco}"/>
                             </f:facet>
-                            <p:column headerText="ID">
+                            <p:column headerText="ID" style="text-align: center" width="50">
                                 <p:outputLabel value="#{objeto.id}"/>
                             </p:column>
-                            <p:column headerText="Nome">
+                            <p:column headerText="Nome" style="text-align: center" width="450">
                                 <p:outputLabel value="#{objeto.nome}"/>
                             </p:column>
-                            <p:column headerText="Código">
+                            <p:column headerText="Código" style="text-align: center">
                                 <p:outputLabel value="#{objeto.codigo}"/>
                             </p:column>
-                            <p:column headerText="Admissão">
+                            <p:column headerText="Admissão" style="text-align: center">
                                 <p:outputLabel value="#{objeto.admissao}"/>
                             </p:column>
-                            <p:column headerText="Ações">
-                                <div align="center">
-                                    <p:commandButton action="#{FuncionarioController.editar(objeto.id)}" ajax="false"
-                                                     icon="pi pi-pencil" title="Editar"/>
-                                    <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id, true)}" ajax="false"
-                                                     icon="pi pi-id-card" title="Ver crachá"/>
-                                    <p:commandButton action="#{FuncionarioController.remover(objeto.id)}" ajax="false"
-                                                     icon="pi pi-trash" title="Remover" update="@form"
-                                                     onclick="if (!confirm('Confirma a exclusão?')) return false"/>
-                                </div>
+                            <p:column headerText="Ações" style="text-align: center" width="200">
+                                <p:commandButton action="#{FuncionarioController.editar(objeto.id)}" ajax="false"
+                                                 icon="pi pi-pencil" title="Editar"/>
+                                <p:commandButton action="#{CrachaFuncionarioController.editar(objeto.id, true)}" ajax="false"
+                                                 icon="pi pi-id-card" title="Ver crachá"/>
+                                <p:commandButton action="#{FuncionarioController.remover(objeto.id)}" ajax="false"
+                                                 icon="pi pi-trash" title="Remover" update="@form"
+                                                 onclick="if (!confirm('Confirma a exclusão?')) return false"/>
                             </p:column>
                         </p:dataTable>
-                        <p:panelGrid columns="4" class="headerListagem" >
+                        <p:panelGrid columns="4" class="navegacaoListagem" >
                             <p:commandButton value="Primeira" icon="pi pi-fast-backward"
                                              actionListener="#{FuncionarioController.dao.primeiraPagina()}"
                                              update="listagem"/>
