@@ -152,7 +152,7 @@
 
 .pageDefinition{
     text-decoration: underline;
-    font-family: "Verdana, Helvetica, sans-serif";
+    font-family: "Verdana", "Helvetica"," sans-serif";
     letter-spacing: 1.5px;
     font-size: 2.2rem;
     color: lightslategrey;
