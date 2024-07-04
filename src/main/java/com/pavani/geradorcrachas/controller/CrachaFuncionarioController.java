@@ -10,9 +10,7 @@ import com.pavani.geradorcrachas.service.ConversorBytesService;
 import com.pavani.geradorcrachas.util.MessageUtil;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.CroppedImage;
 import org.primefaces.model.StreamedContent;
@@ -118,14 +116,16 @@ public class CrachaFuncionarioController implements Serializable {
     }
 
     public String editar(Long id, boolean bool){
+        String retorno = editar(id);
         advindoOutraTela = true;
-        return editar(id);
+        return retorno;
     }
 
     public String editar(Long id){
         if(objeto!=null){
             objeto = null;
         }
+        advindoOutraTela = false;
         objeto = dao.findById(id);
         layout = new LayoutCrachaDao().getDefault();
         return("/crachas-funcionarios/formulario?faces-redirect=true");
@@ -187,16 +187,6 @@ public class CrachaFuncionarioController implements Serializable {
         MessageUtil.infoMessage("Sucesso", file.getFileName() + " carregado temporariamente para pré-visualização");
     }
 
-//    private byte[] toByteArrayUsingJava(InputStream inputS) throws IOException{
-//        ByteArrayOutputStream byteArrayOtpS = new ByteArrayOutputStream();
-//        int readByte = inputS.read();
-//        while (readByte != -1){
-//            byteArrayOtpS.write(readByte);
-//            readByte = inputS.read();
-//        }
-//        return byteArrayOtpS.toByteArray();
-//    }
-
     public String mostrarCracha(){
         if(objeto.getId()!=null)
             return("/images/crachas/" + objeto.getId());
@@ -253,7 +243,7 @@ public class CrachaFuncionarioController implements Serializable {
                 InputStream is = classLoader.getResourceAsStream("layout-cracha\\no-image.png");
                 objeto.setFoto(ConversorBytesService.toByteArrayUsingIS(is));
             }catch(IOException ioe) {
-                return;
+
             }
         }
     }

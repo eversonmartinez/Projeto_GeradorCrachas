@@ -82,7 +82,7 @@ public class GeradorCrachaService {
 
         String nome1 = randomName();
         String nome2 = randomName();
-        while(nome2.equals(nome1));
+        while(nome2.equals(nome1))
             nome2=randomName();
 
         File imagemLayout = new File(System.getProperty("java.io.tmpdir"), "nome1");

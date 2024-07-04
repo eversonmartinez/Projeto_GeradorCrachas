@@ -61,7 +61,6 @@ public class ImageView implements Serializable {
     }
 
     public StreamedContent previewCracha(LayoutCracha layout){
-        System.out.println("entrouuu");
         byte[] buffer;
         FacesContext fc = FacesContext.getCurrentInstance();
 

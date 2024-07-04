@@ -13,7 +13,7 @@ public class CrachaFuncionario implements Serializable {
     private Long id;
     @Column(name = "nomeVisivel", nullable = true, length = 20)
     private String nomeVisivel;
-    @Column(name = "apelido", nullable = true, length = 11)
+    @Column(name = "apelido", nullable = true, length = 12)
     private String apelido;
     @Column (name="admissaoFuncionario", nullable = true)
     private LocalDate admissaoFuncionario;
